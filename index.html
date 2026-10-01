@@ -1,232 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#190824">
-  <title>Rifas Peralta</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      background: #190824;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    .inicio {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding:
-        calc(12px + env(safe-area-inset-top))
-        calc(12px + env(safe-area-inset-right))
-        calc(16px + env(safe-area-inset-bottom))
-        calc(12px + env(safe-area-inset-left));
-      background: radial-gradient(
-        circle at center, #491768, #190824 75%
-      );
-    }
-
-    .imagen {
-      display: block;
-      width: 100%;
-      max-width: 1000px;
-      height: calc(100vh - 130px);
-      height: max(
-        100px,
-        calc(
-          100dvh - 130px -
-          env(safe-area-inset-top) -
-          env(safe-area-inset-bottom)
-        )
-      );
-      object-fit: contain;
-      object-position: center;
-    }
-
-    button {
-      font: inherit;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    button:focus-visible {
-      outline: 3px solid white;
-      outline-offset: 4px;
-    }
-
-    .pabel {
-      flex-shrink: 0;
-      min-width: 200px;
-      min-height: 58px;
-      padding: 14px 32px;
-      border: 1px solid #fff0b3;
-      border-radius: 18px;
-      background: linear-gradient(
-        135deg, #fff0b3, #efc356, #bd821e
-      );
-      color: #301039;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 10px 30px #0006;
-    }
-
-    dialog {
-      width: min(92vw, 480px);
-      max-height: 85vh;
-      max-height: 85dvh;
-      overflow: auto;
-      padding: 24px;
-      border: 1px solid #eac565;
-      border-radius: 24px;
-      background: #240b32;
-      color: white;
-      box-shadow: 0 20px 70px #0009;
-    }
-
-    dialog::backdrop {
-      background: #000b;
-      backdrop-filter: blur(8px);
-    }
-
-    .cabecera {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      margin: 0;
-      color: #f6d77b;
-      font-size: 28px;
-    }
-
-    .cerrar {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-      border: 1px solid #ffffff40;
-      border-radius: 12px;
-      background: #ffffff10;
-      color: white;
-      font-size: 26px;
-    }
-
-    .opciones {
-      display: grid;
-      gap: 16px;
-    }
-
-    .opcion {
-      width: 100%;
-      min-height: 64px;
-      padding: 18px;
-      border: 1px solid #dcb862;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #45205b, #30113f);
-      color: #ffe8a4;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .opcion:disabled {
-      opacity: 1;
-      cursor: default;
-    }
-
-    .nota {
-      margin: 22px 0 0;
-      color: #d7c5df;
-      font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090e17">
+<title>Ruleta — demostración</title>
+<!-- COPIA TODO ESTE ARCHIVO EN index.html.
+     PROTOTIPO AUTÓNOMO, SIN DEPENDENCIAS NI IMÁGENES EXTERNAS.
+     No maneja dinero real. Los datos y permisos se simulan en este navegador.
+     Antes de operar: sustituir persistencia, autenticación, sorteos y pagos
+     por servicios del servidor. Nunca confiar saldos o permisos a localStorage.
+     Los bonos por referidos de esta demostración solo funcionan en este navegador.
+-->
+<style>
+:root{color-scheme:dark;--gold:#f5d37e;--blue:#39bcff;--muted:#a8b7cd;--line:#675737;--bg:#090e17}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 10%,#192a40,var(--bg) 60%);color:#f3f5fa;font:16px/1.5 system-ui,-apple-system,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:11px 17px;background:#182234;color:#fff;font-weight:650}button:hover{filter:brightness(1.15)}button:disabled{opacity:.45;cursor:not-allowed}button.gold{background:linear-gradient(#ffe9a3,#bf8b29);color:#201704}button.blue{border-color:var(--blue);background:#0c2b43}input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #41526a;background:#0b1422;color:#fff}label{display:block;color:var(--muted);margin:12px 0 5px}h1,h2,h3,p{margin:0 0 12px}h1{font-size:clamp(22px,4vw,36px);color:var(--gold);letter-spacing:3px}h2{font-size:23px;color:var(--gold)}h3{font-size:18px}small,.muted{color:var(--muted)}.banner{padding:9px 16px;text-align:center;background:#112337;border-bottom:1px solid #325573;font-size:13px}.wrap{max-width:1200px;margin:auto;padding:22px}.top,.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.top{justify-content:space-between;margin-bottom:22px}.card{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#121d2c,#080e17);padding:22px;box-shadow:0 12px 40px #0006}.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px}.auth{max-width:440px;margin:25px auto}.hidden{display:none!important}.balance{font-size:27px;font-weight:750;color:var(--gold)}.push{margin-left:auto}.full{width:100%}.space{margin-top:18px}.status{padding:12px;background:#102335;border-radius:12px;min-height:48px}.wheel-box{position:relative;width:min(100%,460px);aspect-ratio:1;margin:24px auto}.wheel{width:100%;height:100%;filter:drop-shadow(0 0 16px #23aaff88);transition:transform 4s cubic-bezier(.12,.68,.12,1)}.pointer{position:absolute;z-index:2;top:-8px;left:calc(50% - 16px);width:32px;height:43px;background:linear-gradient(#fff1ab,#d79c28);clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 4px 5px #000)}.hub{position:absolute;inset:39%;border-radius:50%;background:radial-gradient(#253548,#0a0e17);border:3px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-size:clamp(22px,5vw,45px);pointer-events:none}.bets input{width:150px}.bet-controls{display:grid;grid-template-columns:1fr auto;gap:10px}.rules{font-size:13px;color:var(--muted);margin:14px 0}.stat{border-bottom:1px solid #293548;padding:10px 0}.mono{font-family:ui-monospace,monospace;word-break:break-all}.history{max-height:350px;overflow:auto}.entry{padding:13px 0;border-bottom:1px solid #2c394b;font-size:14px}.positive{color:#6fe3b2}.negative{color:#ff9797}.pill{display:inline-block;background:#162d42;color:#9ddbff;border-radius:20px;padding:4px 10px;font-size:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}dialog{max-width:540px;width:calc(100% - 28px);max-height:90vh;overflow:auto;border:1px solid var(--gold);border-radius:18px;background:#101a29;color:#fff;padding:22px}dialog::backdrop{background:#000b}#adminDialog{max-width:850px}.close{float:right}.notice{border-left:3px solid var(--blue);padding:10px 13px;background:#102235;margin:14px 0;font-size:14px}#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#f6d882;color:#16110a;padding:12px 20px;border-radius:14px;z-index:10;max-width:92vw;box-shadow:0 8px 25px #0008}.foot{text-align:center;padding:30px;color:var(--muted);font-size:13px}a{color:#72cbff}@media(max-width:760px){.layout,.grid2{grid-template-columns:1fr}.wrap{padding:14px}.card{padding:17px}.top button{padding:8px 11px}.balance{font-size:23px}.wheel-box{max-width:370px}.bets input{width:115px}}
+@media(prefers-reduced-motion:reduce){.wheel{transition-duration:.01s}}
+</style>
 </head>
-
 <body>
-  <main class="inicio" aria-label="Rifas Peralta">
-    <img
-      class="imagen"
-      src="./%E2%80%9Crifas-peralta%20punto%20jpeg%E2%80%9D.jpeg"
-      alt="Rifas Peralta: donde tu suerte te puede cambiar"
-      fetchpriority="high"
-    >
-
-    <button
-      id="abrirPanel"
-      class="pabel"
-      type="button"
-      aria-haspopup="dialog"
-      aria-controls="panelPabel"
-    >
-      Pabel
-    </button>
-  </main>
-
-  <dialog id="panelPabel" aria-labelledby="tituloPanel">
-    <div class="cabecera">
-      <h1 id="tituloPanel">Panel Pabel</h1>
-
-      <button
-        id="cerrarPanel"
-        class="cerrar"
-        type="button"
-        aria-label="Cerrar panel"
-      >
-        ×
-      </button>
-    </div>
-
-    <div class="opciones">
-      <button class="opcion" type="button" disabled>
-        Rifa
-      </button>
-
-      <button class="opcion" type="button" disabled>
-        Verificador de boletos
-      </button>
-
-      <button class="opcion" type="button" disabled>
-        Rifas activas
-      </button>
-    </div>
-
-    <p class="nota">
-      Las funciones de estos botones se agregarán después.
-    </p>
-  </dialog>
-
-  <script>
-    const panel = document.getElementById("panelPabel");
-    const abrir = document.getElementById("abrirPanel");
-    const cerrar = document.getElementById("cerrarPanel");
-
-    abrir.addEventListener("click", function () {
-      if (!panel.open) {
-        panel.showModal();
-      }
-    });
-
-    cerrar.addEventListener("click", function () {
-      panel.close();
-    });
-
-    panel.addEventListener("close", function () {
-      abrir.focus();
-    });
-  </script>
+<div class="banner">DEMOSTRACIÓN · Saldo de prueba expresado en USDT · Sin depósitos ni retiros reales</div>
+<main class="wrap">
+<header class="top"><h1>♛ RULETA</h1><div class="row"><button id="adminOpen">⚙ Panel de administrador · demo</button><button id="logout" class="hidden">Cerrar sesión</button></div></header>
+<section id="auth" class="card auth">
+<h2 id="authTitle">Crear cuenta</h2><p class="muted">Regístrate y entra directamente. Bono de prueba: 0.20 USDT.</p>
+<form id="authForm"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="email" required maxlength="150">
+<div id="registrationFields"><label for="phone">Número de teléfono</label><input id="phone" type="tel" autocomplete="tel" maxlength="25"></div>
+<label for="password">Contraseña</label><input id="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+<div id="confirmationField"><label for="confirmPassword">Confirmar contraseña</label><input id="confirmPassword" type="password" autocomplete="new-password" maxlength="128"></div>
+<p id="refHint" class="notice hidden"></p><button class="gold full space" id="authSubmit">Crear cuenta</button></form>
+<button class="full space" id="switchAuth">Ya tengo cuenta · Iniciar sesión</button><p class="rules">Cuentas de prueba guardadas únicamente en este navegador. Usa datos ficticios.</p>
+</section>
+<section id="platform" class="layout hidden">
+<div class="card"><div class="row"><div><small>Tu saldo de prueba</small><div id="balance" class="balance"></div></div><div class="row push"><button class="gold" id="recharge">Recarga</button><button class="blue" id="withdraw">Retira</button></div></div>
+<small id="held"></small><div class="wheel-box"><div class="pointer"></div><svg id="wheel" class="wheel" viewBox="0 0 400 400" role="img" aria-label="Ruleta con multiplicadores"></svg><div class="hub">♛</div></div>
+<div class="row bets"><label for="bet">Apuesta</label><input id="bet" type="number" min="0.01" step="0.000001"><button id="minimum">Mínimo</button><button id="minus" aria-label="Reducir apuesta">−</button><button id="plus" aria-label="Aumentar apuesta">+</button><button class="gold push" id="spin">GIRAR</button></div>
+<p class="rules" id="odds"></p><div id="result" class="status" role="status" aria-live="polite">Elige tu apuesta para comenzar.</div>
+<details class="space"><summary>Reglas y premios de la propuesta</summary><p class="rules">×0 pierde la apuesta. Un multiplicador menor que 1 devuelve solo una parte. Un multiplicador mayor que 1 genera ganancia. El premio incluye la apuesta inicial. Las probabilidades de cada casilla se muestran abajo; su tamaño representa su probabilidad. El administrador puede configurar la propuesta para nuevos giros. No se fuerzan pérdidas por saldo ni por usuario.</p><div id="prizes"></div></details></div>
+<aside><section class="card"><h2>Invitar</h2><p>Comparte tu enlace personal.</p><label for="inviteLink">Tu enlace</label><input id="inviteLink" readonly><div class="row space"><button id="copyLink">Copiar</button><button class="blue" id="shareLink">Compartir por WhatsApp</button></div><div class="notice"><strong>Premios por invitar</strong><p>0.50 USDT por cada invitado que complete su primera recarga aprobada.</p><p>1 USDT al llegar a 10 invitados registrados, aunque no recarguen.</p><small>En esta demo, el premio de 10 registros se entrega una vez. La repetición queda pendiente de decidir. Sin auto invitaciones ni registros duplicados.</small></div><p id="refCount"></p><small>La demo solo reconoce cuentas creadas en este navegador. La conexión entre dispositivos requiere servidor.</small></section>
+<section class="card space"><h2>Historial</h2><small id="identity"></small><div id="history" class="history space"></div></section></aside>
+</section>
+</main><footer class="foot">Prototipo de la propuesta acordada · No conecta todavía con una plataforma de dinero real</footer>
+<dialog id="moneyDialog"><button type="button" class="close" data-close="moneyDialog">✕</button><h2 id="moneyTitle"></h2><p id="moneyInfo" class="notice"></p><form id="moneyForm"><label for="amount">Monto USDT de prueba</label><input id="amount" type="number" step="0.000001" required><label for="destination" id="destinationLabel"></label><input id="destination" maxlength="200" required><button class="gold full space">Enviar solicitud de prueba</button></form><p class="rules">Comisiones pendientes de definir. La demo no cobra comisiones ni realiza transferencias.</p></dialog>
+<dialog id="adminDialog"><button class="close" data-close="adminDialog">✕</button><h2>Panel de administrador</h2><p class="notice">Panel de prueba abierto para revisar la propuesta. No es un acceso administrativo seguro y no debe utilizarse con fondos reales.</p>
+<form id="settingsForm"><div class="grid2"><div><label for="minBet">Apuesta mínima (desde 0.01)</label><input id="minBet" type="number" min="0.01" step="0.000001" required></div><div><label for="winPercent">Probabilidad de ganancia (%)</label><input id="winPercent" type="number" min="0" max="100" step="0.01" required><small id="lossPercent"></small></div><div><label for="minRecharge">Recarga mínima (pendiente)</label><input id="minRecharge" type="number" min="0.01" step="0.000001" placeholder="Por definir"></div><div><label for="minWithdraw">Retiro mínimo (pendiente)</label><input id="minWithdraw" type="number" min="0.01" step="0.000001" placeholder="Por definir"></div><div><label for="lossMultipliers">Multiplicadores de pérdida</label><input id="lossMultipliers" required placeholder="0, 0.5"></div><div><label for="winMultipliers">Multiplicadores de ganancia</label><input id="winMultipliers" required placeholder="2, 3, 5, 10"></div></div><p class="rules">Multiplicadores de ejemplo, separados por comas; utiliza punto decimal. Cada casilla de una categoría comparte por igual su probabilidad. No se incluye ×1 porque sería un resultado neutral. El 79 % / 21 % inicial es un ejemplo editable, no un reparto confirmado.</p><button class="gold">Guardar cambios</button></form>
+<h3 class="space">Solicitudes pendientes de prueba</h3><div id="requests"></div><h3 class="space">Usuarios y referidos de prueba</h3><div id="users"></div><h3 class="space">Registro de administración</h3><div id="audit" class="history"></div></dialog>
+<div id="toast" role="status" class="hidden"></div>
+<script>
+'use strict';
+// Modelo local de demostración. Todos los importes son enteros de una millonésima.
+const UNIT=1000000,KEY='ruleta_propuesta_demo_v1',SESSION='ruleta_propuesta_session_v1';
+const $=id=>document.getElementById(id), fmt=n=>(n/UNIT).toLocaleString('es-DO',{maximumFractionDigits:6,minimumFractionDigits:2})+' USDT';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initial=()=>({config:{minBet:500000,minRecharge:null,minWithdraw:null,winPercent:79,losses:[0,.5],wins:[2,3,5,10]},users:[],requests:[],audit:[]});
+let db;try{db=JSON.parse(localStorage.getItem(KEY))||initial();}catch{db=initial();}
+let session=sessionStorage.getItem(SESSION),register=true,spinning=false,rotation=0,moneyType='recharge',toastTimer;
+let incomingRef=new URLSearchParams(location.search).get('ref')||sessionStorage.getItem('ruleta_ref')||'';
+if(incomingRef)sessionStorage.setItem('ruleta_ref',incomingRef);
+function save(){localStorage.setItem(KEY,JSON.stringify(db));}
+function current(){return db.users.find(u=>u.id===session);}
+function notify(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),5000);}
+function units(s){const n=Number(s);if(!String(s).trim()||!Number.isFinite(n)||n<=0||n>1000000000)return null;const u=Math.round(n*UNIT);return Number.isSafeInteger(u)?u:null;}
+function uid(){return crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');}
+function record(u,kind,delta,detail){u.history.unshift({id:uid(),time:new Date().toISOString(),kind,delta,detail});}
+function audit(detail){db.audit.unshift({time:new Date().toISOString(),detail});}
+async function passwordHash(password,salt){if(!crypto.subtle)throw Error('Abre la demo en HTTPS o localhost para crear cuentas.');const data=new TextEncoder().encode(salt+'|'+password);return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),v=>v.toString(16).padStart(2,'0')).join('');}
+function setSession(u){session=u.id;sessionStorage.setItem(SESSION,session);}
+function slices(config){const out=[];let start=0;for(const [list,total] of [[config.losses,100-config.winPercent],[config.wins,config.winPercent]]){list.forEach(mult=>{const percent=total/list.length;out.push({mult,percent,start,end:start+percent});start+=percent;});}return out;}
+function randomUnit(){// Rejection sampling avoids modulo bias.
+ const range=1000000,limit=Math.floor(4294967296/range)*range,a=new Uint32Array(1);do{crypto.getRandomValues(a);}while(a[0]>=limit);return (a[0]%range)/range;}
+function choose(config,r=randomUnit()){const list=slices(config),value=r*100;return list.findIndex(s=>s.percent>0&&value<s.end);}
+function drawWheel(){const list=slices(db.config),colors=['#ab2539','#bd7e25','#155da0','#326932','#773199','#137381'];const point=(r,a)=>[200+r*Math.cos((a-90)*Math.PI/180),200+r*Math.sin((a-90)*Math.PI/180)];let svg='<circle cx="200" cy="200" r="194" fill="#0b1726" stroke="#f4cf78" stroke-width="8"/>';
+ list.forEach((s,i)=>{if(!s.percent)return;const a=s.start*3.6,b=s.end*3.6,mid=(a+b)/2,[x1,y1]=point(183,a),[x2,y2]=point(183,b),[tx,ty]=point(131,mid);const d=s.percent===100?'M200 17 A183 183 0 1 1 199.999 17 Z':`M200 200 L${x1} ${y1} A183 183 0 ${b-a>180?1:0} 1 ${x2} ${y2} Z`;svg+=`<path d="${d}" fill="${colors[i%colors.length]}" stroke="#edce83" stroke-width="2"/><text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" fill="white" font-size="${s.percent<5?12:24}" font-weight="700">×${s.mult}</text>`;});$('wheel').innerHTML=svg;}
+function settlePending(u){if(!u.pendingSpin)return;const p=u.pendingSpin;u.balance+=p.payout;record(u,'Résultat',p.payout,`Apuesta ${fmt(p.bet)} · ×${p.mult} · premio total ${fmt(p.payout)}`);delete u.pendingSpin;save();}
+function render(){const u=current();$('auth').classList.toggle('hidden',!!u);$('platform').classList.toggle('hidden',!u);$('logout').classList.toggle('hidden',!u);if(!u)return;if(u.pendingSpin&&!spinning)settlePending(u);
+ $('balance').textContent=fmt(u.balance);const held=db.requests.filter(r=>r.user===u.id&&r.type==='withdraw'&&r.status==='pending').reduce((a,r)=>a+r.amount,0);$('held').textContent=held?`${fmt(held)} reservados para retiro`:'';
+ $('identity').textContent=u.email+' · ID '+u.id.slice(0,8);const url=new URL(location.href);url.search='';url.hash='';url.searchParams.set('ref',u.id);$('inviteLink').value=url.href;
+ $('refCount').textContent=`Invitados registrados: ${db.users.filter(v=>v.referrer===u.id).length}`;
+ $('odds').textContent=`Mínimo: ${fmt(db.config.minBet)} · Ganancia: ${db.config.winPercent}% · Pérdida: ${100-db.config.winPercent}% · Premio incluye la apuesta.`;
+ $('bet').min=db.config.minBet/UNIT;if(!units($('bet').value)||units($('bet').value)<db.config.minBet)$('bet').value=db.config.minBet/UNIT;
+ $('prizes').innerHTML=slices(db.config).map(s=>`<div class="stat">×${s.mult} · ${s.percent.toFixed(2)}% · premio para la apuesta actual: ${fmt(Math.floor((units($('bet').value)||db.config.minBet)*s.mult))}</div>`).join('');
+ const requests=db.requests.filter(r=>r.user===u.id).map(r=>({time:r.time,kind:r.type==='recharge'?'Recarga solicitada':'Retiro solicitado',delta:0,detail:`${fmt(r.amount)} · ${r.status==='pending'?'Pendiente':r.status==='approved'?'Aprobado de prueba':'Rechazado'}`}));
+ $('history').innerHTML=[...u.history,...requests].sort((a,b)=>b.time.localeCompare(a.time)).map(h=>`<div class="entry"><strong>${esc(h.kind)}</strong> <span class="${h.delta>=0?'positive':'negative'}">${h.delta?fmt(h.delta):''}</span><br>${esc(h.detail)}<br><small>${new Date(h.time).toLocaleString('es-DO')}</small></div>`).join('')||'<p class="muted">Sin movimientos.</p>';
+ $('spin').disabled=spinning||u.balance<db.config.minBet;$('logout').disabled=spinning;drawWheel();}
+function show(id){$(id).showModal();}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
+$('switchAuth').onclick=()=>{register=!register;$('authTitle').textContent=register?'Crear cuenta':'Iniciar sesión';$('authSubmit').textContent=register?'Crear cuenta':'Entrar';$('registrationFields').classList.toggle('hidden',!register);$('confirmationField').classList.toggle('hidden',!register);$('switchAuth').textContent=register?'Ya tengo cuenta · Iniciar sesión':'Crear una cuenta';$('password').autocomplete=register?'new-password':'current-password';};
+if(incomingRef){$('refHint').textContent='Registro mediante enlace de invitación.';$('refHint').classList.remove('hidden');}
+$('authForm').onsubmit=async e=>{e.preventDefault();const email=$('email').value.trim().toLowerCase(),phone=$('phone').value.replace(/\D/g,''),password=$('password').value;$('authSubmit').disabled=true;try{if(register){if(phone.length<7||phone.length>15)throw Error('Escribe un número de teléfono válido.');if(password!==$('confirmPassword').value)throw Error('Las contraseñas no coinciden.');if(db.users.some(u=>u.email===email||u.phone===phone))throw Error('El correo o teléfono ya está registrado.');const salt=uid(),hash=await passwordHash(password,salt),referrer=db.users.find(u=>u.id===incomingRef);const u={id:uid(),email,phone,salt,hash,balance:200000,history:[],referrer:referrer?.id||null,firstRecharge:false,milestonePaid:false};record(u,'Bono de registro',200000,'Entregado una vez · saldo de prueba');db.users.push(u);if(referrer){const count=db.users.filter(v=>v.referrer===referrer.id).length;if(count>=10&&!referrer.milestonePaid){referrer.balance+=UNIT;referrer.milestonePaid=true;record(referrer,'Premio por invitados',UNIT,'Primeros 10 registros · sin exigir recarga');}}save();setSession(u);}else{const u=db.users.find(u=>u.email===email);if(!u||u.hash!==await passwordHash(password,u.salt))throw Error('Correo o contraseña incorrectos.');setSession(u);}$('authForm').reset();render();}catch(err){notify(err.message);}finally{$('authSubmit').disabled=false;}};
+$('logout').onclick=()=>{if(spinning)return;session=null;sessionStorage.removeItem(SESSION);render();};
+$('minimum').onclick=()=>{$('bet').value=db.config.minBet/UNIT;render();};
+$('minus').onclick=()=>{$('bet').value=Math.max(db.config.minBet,(units($('bet').value)||db.config.minBet)-db.config.minBet)/UNIT;render();};
+$('plus').onclick=()=>{$('bet').value=((units($('bet').value)||db.config.minBet)+db.config.minBet)/UNIT;render();};
+$('bet').onchange=render;
+$('spin').onclick=()=>{const u=current(),bet=units($('bet').value);if(!u||spinning)return;if(!bet||bet<db.config.minBet)return notify('La apuesta debe alcanzar el mínimo.');if(bet>u.balance)return notify('Saldo insuficiente.');const config=structuredClone(db.config),index=choose(config),s=slices(config)[index],payout=Math.floor(bet*s.mult);if(!Number.isSafeInteger(payout)||!Number.isSafeInteger(u.balance-bet+payout))return notify('Monto fuera del límite de la demostración.');spinning=true;u.balance-=bet;u.pendingSpin={bet,mult:s.mult,payout};record(u,'Apuesta',-bet,`Reglas fijadas al iniciar · ganancia ${config.winPercent}%`);save();render();$('result').textContent='Girando…';const mid=(s.start+s.end)/2*3.6,target=(360-mid)%360;rotation=Math.floor(rotation/360)*360+1800+target;$('wheel').style.transform=`rotate(${rotation}deg)`;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(()=>{settlePending(u);spinning=false;render();const net=payout-bet;$('result').textContent=`×${s.mult} · Premio total: ${fmt(payout)} · ${net>0?'Ganancia neta: '+fmt(net):net<0?'Pérdida neta: '+fmt(-net):'Apuesta recuperada'}`;if($('adminDialog').open)renderAdmin();},reduced?80:4100);};
+async function copyLink(){try{await navigator.clipboard.writeText($('inviteLink').value);notify('Enlace copiado.');}catch{$('inviteLink').select();notify('Mantén pulsado el enlace y selecciona Copiar.');}}
+$('copyLink').onclick=copyLink;
+$('shareLink').onclick=()=>{const link=$('inviteLink').value;if(location.protocol==='file:')return notify('El enlace local no se abre en otros teléfonos. Aloja la demo para compartir una dirección web.');window.open('https://wa.me/?text='+encodeURIComponent('Te invito a conocer esta ruleta de demostración: '+link),'_blank','noopener,noreferrer');};
+function openMoney(type){if(!current())return;moneyType=type;const isRecharge=type==='recharge',min=db.config[isRecharge?'minRecharge':'minWithdraw'];if(!min)return notify('Define primero el mínimo en el panel de administrador de prueba.');$('moneyTitle').textContent=isRecharge?'Recarga de prueba':'Retiro de prueba';$('moneyInfo').textContent=isRecharge?`Mínimo: ${fmt(min)}. No envíes USDT reales. Para esta demo escribe un identificador ficticio; el administrador lo aprobará como simulación.`:`Mínimo: ${fmt(min)}. El importe quedará reservado hasta aprobar o rechazar la solicitud. No se realiza un pago real.`;$('destinationLabel').textContent=isRecharge?'Identificador ficticio de la transacción':'Destino ficticio para el retiro';$('amount').min=min/UNIT;$('amount').value=min/UNIT;$('destination').value='';show('moneyDialog');}
+$('recharge').onclick=()=>openMoney('recharge');$('withdraw').onclick=()=>openMoney('withdraw');
+$('moneyForm').onsubmit=e=>{e.preventDefault();if(spinning)return notify('Espera a que termine el giro.');const u=current(),amount=units($('amount').value),min=db.config[moneyType==='recharge'?'minRecharge':'minWithdraw'],destination=$('destination').value.trim();if(!u||!min||!amount||amount<min||!destination)return notify('Revisa el monto y los datos.');if(moneyType==='withdraw'&&amount>u.balance)return notify('Saldo insuficiente.');if(moneyType==='recharge'&&db.requests.some(r=>r.type==='recharge'&&r.destination===destination))return notify('Este identificador de transacción ya fue utilizado.');if(moneyType==='withdraw'){u.balance-=amount;record(u,'Reserva para retiro',-amount,'Solicitud pendiente de prueba');}db.requests.unshift({id:uid(),user:u.id,type:moneyType,amount,destination,time:new Date().toISOString(),status:'pending'});save();$('moneyDialog').close();render();notify('Solicitud enviada al panel de prueba.');};
+function renderAdmin(){const c=db.config;for(const [id,key] of [['minBet','minBet'],['minRecharge','minRecharge'],['minWithdraw','minWithdraw']])$(id).value=c[key]?c[key]/UNIT:'';$('winPercent').value=c.winPercent;$('lossPercent').textContent=`Pérdida: ${100-c.winPercent}%`;$('lossMultipliers').value=c.losses.join(', ');$('winMultipliers').value=c.wins.join(', ');
+ $('requests').innerHTML=db.requests.filter(r=>r.status==='pending').map(r=>{const u=db.users.find(v=>v.id===r.user);return `<div class="entry"><strong>${r.type==='recharge'?'Recarga':'Retiro'} · ${fmt(r.amount)}</strong><br>${esc(u?.email||'Usuario')}<br><span class="mono">${esc(r.destination)}</span><div class="row space"><button class="gold" data-request="${r.id}" data-action="approve">${r.type==='recharge'?'Acreditar prueba':'Marcar pagado de prueba'}</button><button data-request="${r.id}" data-action="reject">Rechazar</button></div></div>`;}).join('')||'<p class="muted">Sin solicitudes pendientes.</p>';
+ $('users').innerHTML=db.users.map(u=>`<div class="entry">${esc(u.email)} · ${fmt(u.balance)}<br><small>${db.users.filter(v=>v.referrer===u.id).length} invitados · primera recarga: ${u.firstRecharge?'sí':'no'}</small></div>`).join('')||'<p class="muted">Sin registros.</p>';
+ $('audit').innerHTML=db.audit.map(a=>`<div class="entry">${esc(a.detail)}<br><small>${new Date(a.time).toLocaleString('es-DO')}</small></div>`).join('')||'<p class="muted">Sin acciones.</p>';}
+$('adminOpen').onclick=()=>{renderAdmin();show('adminDialog');};$('winPercent').oninput=()=>{$('lossPercent').textContent=`Pérdida: ${(100-Number($('winPercent').value)).toFixed(2)}%`;};
+function parseMultipliers(text,loss){const list=text.split(',').map(v=>v.trim());if(!list.length||list.length>10||list.some(v=>!v))throw Error('Usa entre 1 y 10 multiplicadores por categoría.');const nums=list.map(Number);if(nums.some(n=>!Number.isFinite(n)||n<0||(loss?n>=1:n<=1)||n>100))throw Error('Pérdidas: desde 0 hasta menos de 1. Ganancias: más de 1 y hasta 100.');if(new Set(nums).size!==nums.length)throw Error('No repitas multiplicadores en la misma categoría.');return nums;}
+$('settingsForm').onsubmit=e=>{e.preventDefault();if(spinning)return notify('Espera al final del giro para cambiar las reglas.');try{const minBet=units($('minBet').value),minRecharge=$('minRecharge').value?units($('minRecharge').value):null,minWithdraw=$('minWithdraw').value?units($('minWithdraw').value):null,winPercent=Number($('winPercent').value);if(!minBet||minBet<10000||($('minRecharge').value&&(!minRecharge||minRecharge<10000))||($('minWithdraw').value&&(!minWithdraw||minWithdraw<10000))||!Number.isFinite(winPercent)||winPercent<0||winPercent>100)throw Error('Mínimos desde 0.01 USDT y probabilidad entre 0 y 100.');const next={minBet,minRecharge,minWithdraw,winPercent,losses:parseMultipliers($('lossMultipliers').value,true),wins:parseMultipliers($('winMultipliers').value,false)};db.config=next;audit('Configuración para nuevos giros: '+JSON.stringify(next));save();render();renderAdmin();notify('Configuración de prueba guardada.');}catch(err){notify(err.message);}};
+$('requests').onclick=e=>{const b=e.target.closest('[data-request]');if(!b)return;if(spinning)return notify('Espera al final del giro.');const r=db.requests.find(v=>v.id===b.dataset.request);if(!r||r.status!=='pending')return;const u=db.users.find(v=>v.id===r.user);if(!u)return;const approved=b.dataset.action==='approve';if(approved&&r.type==='recharge'){if(!Number.isSafeInteger(u.balance+r.amount))return notify('Saldo fuera de límite.');u.balance+=r.amount;record(u,'Recarga aprobada',r.amount,'Acreditación simulada; sin movimiento real');if(!u.firstRecharge){u.firstRecharge=true;const ref=db.users.find(v=>v.id===u.referrer);if(ref&&ref.id!==u.id){ref.balance+=500000;record(ref,'Bono de invitación',500000,'Primera recarga aprobada de '+u.email);}}}else if(!approved&&r.type==='withdraw'){u.balance+=r.amount;record(u,'Retiro rechazado',r.amount,'Se devuelve el saldo reservado');}else if(approved&&r.type==='withdraw'){record(u,'Retiro marcado pagado',0,'Pago simulado de '+fmt(r.amount));}r.status=approved?'approved':'rejected';r.resolvedAt=new Date().toISOString();audit(`${r.type} ${r.id}: ${r.status} · ${fmt(r.amount)}`);save();render();renderAdmin();};
+render();
+</script>
 </body>
 </html>

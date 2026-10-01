@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#16051f">
+  <meta name="theme-color" content="#190824">
   <title>Rifas Peralta</title>
 
   <style>
@@ -14,63 +14,49 @@
 
     html, body {
       margin: 0;
-      background: #16051f;
-      color: white;
+      min-height: 100%;
       font-family: Arial, sans-serif;
+      color: white;
+      background: #190824;
     }
 
-    .pantalla {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      overflow: hidden;
+    .inicio {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 24px;
       background: radial-gradient(
-        ellipse at center,
-        #491267,
-        #16051f 75%
+        circle at center,
+        #491768,
+        #190824 75%
       );
-    }
-
-    .imagen {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
     }
 
     button {
       font: inherit;
-      cursor: pointer;
       touch-action: manipulation;
     }
 
-    .pavel {
-      position: absolute;
-      left: 50%;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      transform: translateX(-50%);
-      min-width: 160px;
-      min-height: 50px;
-      padding: 12px 30px;
+    .boton-pavel {
+      min-width: 200px;
+      min-height: 60px;
+      padding: 16px 36px;
       border: 1px solid #fff0b3;
-      border-radius: 18px;
+      border-radius: 20px;
       background: linear-gradient(
-        135deg,
-        #fff0b3,
-        #efc356,
-        #bd821e
+        135deg, #fff0b3, #efc356, #bd821e
       );
       color: #301039;
-      font-size: 19px;
+      font-size: 24px;
       font-weight: bold;
-      box-shadow: 0 6px 24px #0009;
+      cursor: pointer;
+      box-shadow: 0 12px 36px #0006;
     }
 
     button:focus-visible {
       outline: 3px solid white;
-      outline-offset: 4px;
+      outline-offset: 5px;
     }
 
     dialog {
@@ -78,17 +64,17 @@
       max-height: 85vh;
       max-height: 85dvh;
       overflow: auto;
-      padding: 24px;
+      padding: 26px;
       border: 1px solid #eac565;
       border-radius: 24px;
       background: #240b32;
       color: white;
-      box-shadow: 0 20px 60px #0009;
+      box-shadow: 0 20px 70px #0009;
     }
 
     dialog::backdrop {
       background: #000b;
-      backdrop-filter: blur(7px);
+      backdrop-filter: blur(8px);
     }
 
     .cabecera {
@@ -96,50 +82,65 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      margin-bottom: 26px;
     }
 
-    h2 {
+    h1 {
       margin: 0;
       color: #f6d77b;
+      font-size: 28px;
     }
 
     .cerrar {
       width: 44px;
       height: 44px;
+      flex-shrink: 0;
       border: 1px solid #ffffff40;
       border-radius: 12px;
       background: #ffffff10;
       color: white;
       font-size: 26px;
+      cursor: pointer;
     }
 
-    .contenido {
-      margin-top: 24px;
-      padding: 20px;
-      border: 1px solid #ffffff25;
+    .opciones {
+      display: grid;
+      gap: 16px;
+    }
+
+    .opcion {
+      width: 100%;
+      min-height: 64px;
+      padding: 18px;
+      border: 1px solid #dcb862;
       border-radius: 16px;
-      background: #ffffff08;
-      line-height: 1.6;
+      background: linear-gradient(135deg, #45205b, #30113f);
+      color: #ffe8a4;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
     }
 
-    .contenido p {
-      margin: 0;
+    .opcion:disabled {
+      opacity: 1;
+      cursor: default;
+    }
+
+    .nota {
+      margin: 22px 0 0;
+      color: #d7c5df;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
-  <main class="pantalla">
-    <img
-      class="imagen"
-      src="./rifas-peralta.jpeg"
-      alt="Rifas Peralta: donde tu suerte te puede cambiar"
-      fetchpriority="high"
-    >
-
+  <main class="inicio">
     <button
-      class="pavel"
       id="abrirPanel"
+      class="boton-pavel"
       type="button"
       aria-haspopup="dialog"
       aria-controls="panelPavel"
@@ -150,11 +151,11 @@
 
   <dialog id="panelPavel" aria-labelledby="tituloPanel">
     <div class="cabecera">
-      <h2 id="tituloPanel">Panel Pavel</h2>
+      <h1 id="tituloPanel">Panel Pavel</h1>
 
       <button
-        class="cerrar"
         id="cerrarPanel"
+        class="cerrar"
         type="button"
         aria-label="Cerrar panel"
       >
@@ -162,12 +163,23 @@
       </button>
     </div>
 
-    <div class="contenido">
-      <p>
-        Bienvenido, Pavel. Aquí agregaremos las funciones
-        que elijas para Rifas Peralta.
-      </p>
+    <div class="opciones">
+      <button class="opcion" type="button" disabled>
+        Rifa
+      </button>
+
+      <button class="opcion" type="button" disabled>
+        Verificador de boletos
+      </button>
+
+      <button class="opcion" type="button" disabled>
+        Rifas activas
+      </button>
     </div>
+
+    <p class="nota">
+      Las funciones de estos botones estarán disponibles próximamente.
+    </p>
   </dialog>
 
   <script>
@@ -176,7 +188,9 @@
     const cerrar = document.getElementById("cerrarPanel");
 
     abrir.addEventListener("click", function () {
-      if (!panel.open) panel.showModal();
+      if (!panel.open) {
+        panel.showModal();
+      }
     });
 
     cerrar.addEventListener("click", function () {

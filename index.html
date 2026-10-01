@@ -15,17 +15,28 @@
     html, body {
       margin: 0;
       min-height: 100%;
-      font-family: Arial, sans-serif;
-      color: white;
       background: #190824;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    [hidden] {
+      display: none !important;
     }
 
     .inicio {
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
       min-height: 100vh;
       min-height: 100dvh;
-      padding: 24px;
+      padding:
+        calc(16px + env(safe-area-inset-top))
+        calc(16px + env(safe-area-inset-right))
+        calc(20px + env(safe-area-inset-bottom))
+        calc(16px + env(safe-area-inset-left));
       background: radial-gradient(
         circle at center,
         #491768,
@@ -33,30 +44,55 @@
       );
     }
 
+    .imagen {
+      display: block;
+      width: 100%;
+      max-width: 1000px;
+      height: calc(100vh - 140px);
+      height: calc(
+        100dvh - 140px -
+        env(safe-area-inset-top) -
+        env(safe-area-inset-bottom)
+      );
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .aviso {
+      max-width: 440px;
+      color: #ffe8a4;
+      text-align: center;
+      line-height: 1.5;
+    }
+
     button {
       font: inherit;
       touch-action: manipulation;
-    }
-
-    .boton-pavel {
-      min-width: 200px;
-      min-height: 60px;
-      padding: 16px 36px;
-      border: 1px solid #fff0b3;
-      border-radius: 20px;
-      background: linear-gradient(
-        135deg, #fff0b3, #efc356, #bd821e
-      );
-      color: #301039;
-      font-size: 24px;
-      font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 12px 36px #0006;
     }
 
     button:focus-visible {
       outline: 3px solid white;
       outline-offset: 5px;
+    }
+
+    .boton-pavel {
+      flex-shrink: 0;
+      min-width: 200px;
+      min-height: 58px;
+      padding: 14px 36px;
+      border: 1px solid #fff0b3;
+      border-radius: 20px;
+      background: linear-gradient(
+        135deg,
+        #fff0b3,
+        #efc356,
+        #bd821e
+      );
+      color: #301039;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 12px 36px #0006;
     }
 
     dialog {
@@ -85,7 +121,7 @@
       margin-bottom: 26px;
     }
 
-    h1 {
+    .cabecera h1 {
       margin: 0;
       color: #f6d77b;
       font-size: 28px;
@@ -100,7 +136,6 @@
       background: #ffffff10;
       color: white;
       font-size: 26px;
-      cursor: pointer;
     }
 
     .opciones {
@@ -114,7 +149,11 @@
       padding: 18px;
       border: 1px solid #dcb862;
       border-radius: 16px;
-      background: linear-gradient(135deg, #45205b, #30113f);
+      background: linear-gradient(
+        135deg,
+        #45205b,
+        #30113f
+      );
       color: #ffe8a4;
       font-size: 18px;
       font-weight: bold;
@@ -137,7 +176,20 @@
 </head>
 
 <body>
-  <main class="inicio">
+  <main class="inicio" aria-label="Rifas Peralta">
+    <img
+      id="imagenPrincipal"
+      class="imagen"
+      src="./rifas-peralta.jpeg"
+      alt="Rifas Peralta: donde tu suerte te puede cambiar"
+      fetchpriority="high"
+    >
+
+    <p id="avisoImagen" class="aviso" role="status" hidden>
+      No se pudo cargar la imagen. Comprueba que
+      rifas-peralta.jpeg esté junto a index.html.
+    </p>
+
     <button
       id="abrirPanel"
       class="boton-pavel"
@@ -178,14 +230,27 @@
     </div>
 
     <p class="nota">
-      Las funciones de estos botones estarán disponibles próximamente.
+      Las funciones de estos botones se agregarán después.
     </p>
   </dialog>
 
   <script>
+    const imagen = document.getElementById("imagenPrincipal");
+    const aviso = document.getElementById("avisoImagen");
     const panel = document.getElementById("panelPavel");
     const abrir = document.getElementById("abrirPanel");
     const cerrar = document.getElementById("cerrarPanel");
+
+    function mostrarErrorImagen() {
+      imagen.hidden = true;
+      aviso.hidden = false;
+    }
+
+    imagen.addEventListener("error", mostrarErrorImagen);
+
+    if (imagen.complete && imagen.naturalWidth === 0) {
+      mostrarErrorImagen();
+    }
 
     abrir.addEventListener("click", function () {
       if (!panel.open) {

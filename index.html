@@ -65,7 +65,7 @@
       outline-offset: 4px;
     }
 
-    .pavel {
+    .pabel {
       flex-shrink: 0;
       min-width: 200px;
       min-height: 58px;
@@ -167,18 +167,18 @@
 
     <button
       id="abrirPanel"
-      class="pavel"
+      class="pabel"
       type="button"
       aria-haspopup="dialog"
-      aria-controls="panelPavel"
+      aria-controls="panelPabel"
     >
-      Pavel
+      Pabel
     </button>
   </main>
 
-  <dialog id="panelPavel" aria-labelledby="tituloPanel">
+  <dialog id="panelPabel" aria-labelledby="tituloPanel">
     <div class="cabecera">
-      <h1 id="tituloPanel">Panel Pavel</h1>
+      <h1 id="tituloPanel">Panel Pabel</h1>
 
       <button
         id="cerrarPanel"
@@ -210,12 +210,14 @@
   </dialog>
 
   <script>
-    const panel = document.getElementById("panelPavel");
+    const panel = document.getElementById("panelPabel");
     const abrir = document.getElementById("abrirPanel");
     const cerrar = document.getElementById("cerrarPanel");
 
     abrir.addEventListener("click", function () {
-      if (!panel.open) panel.showModal();
+      if (!panel.open) {
+        panel.showModal();
+      }
     });
 
     cerrar.addEventListener("click", function () {

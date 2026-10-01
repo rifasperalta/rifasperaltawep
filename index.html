@@ -14,14 +14,9 @@
 
     html, body {
       margin: 0;
-      min-height: 100%;
       background: #190824;
       color: white;
       font-family: Arial, sans-serif;
-    }
-
-    [hidden] {
-      display: none !important;
     }
 
     .inicio {
@@ -33,14 +28,12 @@
       min-height: 100vh;
       min-height: 100dvh;
       padding:
-        calc(16px + env(safe-area-inset-top))
-        calc(16px + env(safe-area-inset-right))
-        calc(20px + env(safe-area-inset-bottom))
-        calc(16px + env(safe-area-inset-left));
+        calc(12px + env(safe-area-inset-top))
+        calc(12px + env(safe-area-inset-right))
+        calc(16px + env(safe-area-inset-bottom))
+        calc(12px + env(safe-area-inset-left));
       background: radial-gradient(
-        circle at center,
-        #491768,
-        #190824 75%
+        circle at center, #491768, #190824 75%
       );
     }
 
@@ -48,51 +41,44 @@
       display: block;
       width: 100%;
       max-width: 1000px;
-      height: calc(100vh - 140px);
-      height: calc(
-        100dvh - 140px -
-        env(safe-area-inset-top) -
-        env(safe-area-inset-bottom)
+      height: calc(100vh - 130px);
+      height: max(
+        100px,
+        calc(
+          100dvh - 130px -
+          env(safe-area-inset-top) -
+          env(safe-area-inset-bottom)
+        )
       );
       object-fit: contain;
       object-position: center;
     }
 
-    .aviso {
-      max-width: 440px;
-      color: #ffe8a4;
-      text-align: center;
-      line-height: 1.5;
-    }
-
     button {
       font: inherit;
-      touch-action: manipulation;
       cursor: pointer;
+      touch-action: manipulation;
     }
 
     button:focus-visible {
       outline: 3px solid white;
-      outline-offset: 5px;
+      outline-offset: 4px;
     }
 
-    .boton-pavel {
+    .pavel {
       flex-shrink: 0;
       min-width: 200px;
       min-height: 58px;
-      padding: 14px 36px;
+      padding: 14px 32px;
       border: 1px solid #fff0b3;
-      border-radius: 20px;
+      border-radius: 18px;
       background: linear-gradient(
-        135deg,
-        #fff0b3,
-        #efc356,
-        #bd821e
+        135deg, #fff0b3, #efc356, #bd821e
       );
       color: #301039;
       font-size: 24px;
       font-weight: bold;
-      box-shadow: 0 12px 36px #0006;
+      box-shadow: 0 10px 30px #0006;
     }
 
     dialog {
@@ -100,7 +86,7 @@
       max-height: 85vh;
       max-height: 85dvh;
       overflow: auto;
-      padding: 26px;
+      padding: 24px;
       border: 1px solid #eac565;
       border-radius: 24px;
       background: #240b32;
@@ -118,10 +104,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
-    .cabecera h1 {
+    h1 {
       margin: 0;
       color: #f6d77b;
       font-size: 28px;
@@ -149,15 +135,10 @@
       padding: 18px;
       border: 1px solid #dcb862;
       border-radius: 16px;
-      background: linear-gradient(
-        135deg,
-        #45205b,
-        #30113f
-      );
+      background: linear-gradient(135deg, #45205b, #30113f);
       color: #ffe8a4;
       font-size: 18px;
       font-weight: bold;
-      text-align: center;
     }
 
     .opcion:disabled {
@@ -178,21 +159,15 @@
 <body>
   <main class="inicio" aria-label="Rifas Peralta">
     <img
-      id="imagenPrincipal"
       class="imagen"
-      src="./rifas-peralta.jpeg"
+      src="./%E2%80%9Crifas-peralta%20punto%20jpeg%E2%80%9D.jpeg"
       alt="Rifas Peralta: donde tu suerte te puede cambiar"
       fetchpriority="high"
     >
 
-    <p id="avisoImagen" class="aviso" role="status" hidden>
-      No se pudo cargar la imagen. Comprueba que
-      rifas-peralta.jpeg esté junto a index.html.
-    </p>
-
     <button
       id="abrirPanel"
-      class="boton-pavel"
+      class="pavel"
       type="button"
       aria-haspopup="dialog"
       aria-controls="panelPavel"
@@ -235,27 +210,12 @@
   </dialog>
 
   <script>
-    const imagen = document.getElementById("imagenPrincipal");
-    const aviso = document.getElementById("avisoImagen");
     const panel = document.getElementById("panelPavel");
     const abrir = document.getElementById("abrirPanel");
     const cerrar = document.getElementById("cerrarPanel");
 
-    function mostrarErrorImagen() {
-      imagen.hidden = true;
-      aviso.hidden = false;
-    }
-
-    imagen.addEventListener("error", mostrarErrorImagen);
-
-    if (imagen.complete && imagen.naturalWidth === 0) {
-      mostrarErrorImagen();
-    }
-
     abrir.addEventListener("click", function () {
-      if (!panel.open) {
-        panel.showModal();
-      }
+      if (!panel.open) panel.showModal();
     });
 
     cerrar.addEventListener("click", function () {

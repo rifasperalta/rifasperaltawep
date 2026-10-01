@@ -2,138 +2,62 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rifas Peralta</title>
-  <meta name="description" content="Rifas Peralta: productos, números y resultados de sorteos.">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#061735">
+  <title>Rifa Esperalta</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #f3f5fa;
-      color: #172139;
-      line-height: 1.6;
+      width: 100%;
+      min-height: 100%;
+      background: #061735;
     }
-    header { background: #122345; color: white; padding: 24px; }
-    .wrap { width: min(100%, 960px); margin: auto; }
-    h1 { margin: 0; font-size: 2rem; }
-    h2 { margin-top: 0; }
-    main { padding: 24px; }
-    .notice {
-      padding: 14px 18px;
-      background: #fff2ca;
-      border-radius: 12px;
-      margin-bottom: 24px;
-    }
-    .card {
-      background: white;
-      padding: 24px;
-      border: 1px solid #dce2ee;
-      border-radius: 18px;
-      margin-bottom: 24px;
-    }
-    .label { color: #465779; font-weight: 600; }
-    .details {
+
+    .pantalla {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      padding: env(safe-area-inset-top)
+               env(safe-area-inset-right)
+               env(safe-area-inset-bottom)
+               env(safe-area-inset-left);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      margin: 24px 0;
+      place-items: center;
+      overflow: hidden;
+      background: radial-gradient(
+        ellipse at center,
+        #103d78 0%,
+        #061735 70%
+      );
     }
-    .details p { margin: 0; }
-    .numbers {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
-      gap: 10px;
-    }
-    .number {
-      padding: 12px 4px;
-      text-align: center;
-      background: #edf2ff;
-      border: 1px solid #ccd8f2;
-      border-radius: 10px;
-      font-weight: 700;
-    }
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: #526079;
-      font-size: .875rem;
+
+    .banner {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      object-fit: contain;
+      object-position: center;
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="wrap">
-      <h1>Rifas Peralta</h1>
-      <p>Consulta los premios, los números y los resultados.</p>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <div class="notice">
-      <strong>Versión de muestra.</strong>
-      Los datos son de ejemplo. Esta página todavía no permite
-      reservar números ni realizar pagos.
-    </div>
-
-    <section class="card" aria-labelledby="prize-title">
-      <p class="label">Próxima rifa</p>
-      <h2 id="prize-title">Producto por confirmar</h2>
-      <p>
-        Aquí colocaremos las fotos del producto, su descripción
-        y las condiciones de la rifa cuando el cliente las defina.
-      </p>
-
-      <div class="details">
-        <div>
-          <strong>Precio por número</strong>
-          <p>Por confirmar</p>
-        </div>
-        <div>
-          <strong>Fecha del sorteo</strong>
-          <p>Por confirmar</p>
-        </div>
-        <div>
-          <strong>Método del sorteo</strong>
-          <p>Por confirmar</p>
-        </div>
-      </div>
-
-      <h2>Números de ejemplo</h2>
-      <p>La cantidad y disponibilidad se definirán para cada rifa.</p>
-      <div class="numbers" aria-label="Números de muestra, sin reservas habilitadas">
-        <span class="number">01</span>
-        <span class="number">02</span>
-        <span class="number">03</span>
-        <span class="number">04</span>
-        <span class="number">05</span>
-        <span class="number">06</span>
-        <span class="number">07</span>
-        <span class="number">08</span>
-        <span class="number">09</span>
-        <span class="number">10</span>
-        <span class="number">11</span>
-        <span class="number">12</span>
-        <span class="number">13</span>
-        <span class="number">14</span>
-        <span class="number">15</span>
-        <span class="number">16</span>
-        <span class="number">17</span>
-        <span class="number">18</span>
-        <span class="number">19</span>
-        <span class="number">20</span>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="results-title">
-      <h2 id="results-title">Resultados y entrega</h2>
-      <p>
-        Aún no hay resultados publicados. Aquí se mostrará el
-        número ganador y la información de entrega del premio.
-      </p>
-    </section>
+  <main class="pantalla">
+    <img
+      class="banner"
+      src="./rifa-esperalta.png"
+      alt="Rifa Esperalta"
+      fetchpriority="high"
+    >
   </main>
-
-  <footer>Rifas Peralta · Página de muestra</footer>
 </body>
 </html>

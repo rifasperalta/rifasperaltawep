@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#071b16">
+  <meta name="theme-color" content="#16051f">
   <title>Rifas Peralta</title>
 
   <style>
@@ -12,63 +12,32 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
-      background: #071b16;
-      color: #fff;
+      background: #16051f;
+      color: white;
       font-family: Arial, sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
     }
 
     .pantalla {
       position: relative;
-      display: grid;
-      place-items: center;
       width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding:
-        calc(20px + env(safe-area-inset-top))
-        calc(16px + env(safe-area-inset-right))
-        calc(100px + env(safe-area-inset-bottom))
-        calc(16px + env(safe-area-inset-left));
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
       background: radial-gradient(
-        ellipse at center, #21543b, #071b16 75%
+        ellipse at center,
+        #491267,
+        #16051f 75%
       );
     }
 
     .imagen {
       display: block;
       width: 100%;
-      height: calc(100vh - 140px);
-      height: calc(100dvh - 140px);
+      height: 100%;
       object-fit: contain;
       object-position: center;
-    }
-
-    .alternativa {
-      text-align: center;
-      max-width: 500px;
-    }
-
-    .alternativa h1 {
-      color: #f9d77c;
-      font-size: clamp(36px, 8vw, 72px);
-      margin: 0 0 16px;
-    }
-
-    .alternativa p {
-      font-size: 20px;
-      line-height: 1.5;
-    }
-
-    [hidden] {
-      display: none !important;
     }
 
     button {
@@ -77,26 +46,31 @@
       touch-action: manipulation;
     }
 
-    .boton-pavel {
+    .pavel {
       position: absolute;
-      bottom: calc(24px + env(safe-area-inset-bottom));
       left: 50%;
+      bottom: calc(16px + env(safe-area-inset-bottom));
       transform: translateX(-50%);
-      min-width: 180px;
-      min-height: 54px;
-      padding: 14px 32px;
-      border: 1px solid #ffe6a3;
+      min-width: 160px;
+      min-height: 50px;
+      padding: 12px 30px;
+      border: 1px solid #fff0b3;
       border-radius: 18px;
-      background: linear-gradient(135deg, #ffe6a3, #d7a63e);
-      color: #192217;
-      font-weight: bold;
+      background: linear-gradient(
+        135deg,
+        #fff0b3,
+        #efc356,
+        #bd821e
+      );
+      color: #301039;
       font-size: 19px;
-      box-shadow: 0 8px 28px #0006;
+      font-weight: bold;
+      box-shadow: 0 6px 24px #0009;
     }
 
     button:focus-visible {
-      outline: 3px solid #fff;
-      outline-offset: 5px;
+      outline: 3px solid white;
+      outline-offset: 4px;
     }
 
     dialog {
@@ -104,75 +78,68 @@
       max-height: 85vh;
       max-height: 85dvh;
       overflow: auto;
-      padding: 28px;
-      border: 1px solid #e9c969;
+      padding: 24px;
+      border: 1px solid #eac565;
       border-radius: 24px;
-      background: #102b22;
-      color: #fff;
-      box-shadow: 0 20px 70px #0008;
+      background: #240b32;
+      color: white;
+      box-shadow: 0 20px 60px #0009;
     }
 
     dialog::backdrop {
       background: #000b;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(7px);
     }
 
-    .cabecera-panel {
+    .cabecera {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
     }
 
-    .cabecera-panel h2 {
+    h2 {
       margin: 0;
-      color: #f9d77c;
-      font-size: 28px;
+      color: #f6d77b;
     }
 
     .cerrar {
       width: 44px;
       height: 44px;
       border: 1px solid #ffffff40;
-      border-radius: 14px;
+      border-radius: 12px;
       background: #ffffff10;
-      color: #fff;
-      font-size: 24px;
+      color: white;
+      font-size: 26px;
     }
 
-    .contenido-panel {
+    .contenido {
       margin-top: 24px;
-      padding: 22px;
-      border: 1px solid #ffffff20;
-      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid #ffffff25;
+      border-radius: 16px;
       background: #ffffff08;
       line-height: 1.6;
     }
 
-    .contenido-panel p {
+    .contenido p {
       margin: 0;
     }
   </style>
 </head>
 
 <body>
-  <main class="pantalla" aria-label="Rifas Peralta">
+  <main class="pantalla">
     <img
-      id="imagenPrincipal"
       class="imagen"
-      src="./rifas-peralta.png"
-      alt="Rifas Peralta, donde tu suerte te puede cambiar"
+      src="./rifas-peralta.jpeg"
+      alt="Rifas Peralta: donde tu suerte te puede cambiar"
       fetchpriority="high"
     >
 
-    <div id="alternativa" class="alternativa" hidden>
-      <h1>Rifas Peralta</h1>
-      <p>Donde tu suerte te puede cambiar</p>
-    </div>
-
     <button
+      class="pavel"
       id="abrirPanel"
-      class="boton-pavel"
       type="button"
       aria-haspopup="dialog"
       aria-controls="panelPavel"
@@ -182,12 +149,12 @@
   </main>
 
   <dialog id="panelPavel" aria-labelledby="tituloPanel">
-    <div class="cabecera-panel">
+    <div class="cabecera">
       <h2 id="tituloPanel">Panel Pavel</h2>
 
       <button
-        id="cerrarPanel"
         class="cerrar"
+        id="cerrarPanel"
         type="button"
         aria-label="Cerrar panel"
       >
@@ -195,36 +162,21 @@
       </button>
     </div>
 
-    <div class="contenido-panel">
+    <div class="contenido">
       <p>
         Bienvenido, Pavel. Aquí agregaremos las funciones
-        y opciones de Rifas Peralta.
+        que elijas para Rifas Peralta.
       </p>
     </div>
   </dialog>
 
   <script>
-    const imagen = document.getElementById("imagenPrincipal");
-    const alternativa = document.getElementById("alternativa");
     const panel = document.getElementById("panelPavel");
     const abrir = document.getElementById("abrirPanel");
     const cerrar = document.getElementById("cerrarPanel");
 
-    function mostrarAlternativa() {
-      imagen.hidden = true;
-      alternativa.hidden = false;
-    }
-
-    imagen.addEventListener("error", mostrarAlternativa);
-
-    if (imagen.complete && imagen.naturalWidth === 0) {
-      mostrarAlternativa();
-    }
-
     abrir.addEventListener("click", function () {
-      if (!panel.open) {
-        panel.showModal();
-      }
+      if (!panel.open) panel.showModal();
     });
 
     cerrar.addEventListener("click", function () {

@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#090e17">
 <title>Ruleta · comunidad en vivo</title>
-<!-- Version 07: Supabase Auth, RPC y Storage. Configura URL y clave PUBLICA. -->
+<!-- Version 09: Supabase Auth, RPC y Storage. Configura URL y clave PUBLICA. -->
 <style>
 :root{color-scheme:dark;--gold:#f5d37e;--blue:#39bcff;--muted:#a8b7cd;--line:#675737;--bg:#090e17}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 10%,#192a40,var(--bg) 60%);color:#f3f5fa;font:16px/1.5 system-ui,-apple-system,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:11px 17px;background:#182234;color:#fff;font-weight:650}button:hover{filter:brightness(1.15)}button:disabled{opacity:.45;cursor:not-allowed}button.gold{background:linear-gradient(#ffe9a3,#bf8b29);color:#201704}button.blue{border-color:var(--blue);background:#0c2b43}input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #41526a;background:#0b1422;color:#fff}label{display:block;color:var(--muted);margin:12px 0 5px}h1,h2,h3,p{margin:0 0 12px}h1{font-size:clamp(22px,4vw,36px);color:var(--gold);letter-spacing:3px}h2{font-size:23px;color:var(--gold)}h3{font-size:18px}small,.muted{color:var(--muted)}.banner{padding:9px 16px;text-align:center;background:#112337;border-bottom:1px solid #325573;font-size:13px}.wrap{max-width:1200px;margin:auto;padding:22px}.top,.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.top{justify-content:space-between;margin-bottom:22px}.card{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#121d2c,#080e17);padding:22px;box-shadow:0 12px 40px #0006}.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px}.auth{max-width:440px;margin:25px auto}.hidden{display:none!important}.balance{font-size:27px;font-weight:750;color:var(--gold)}.push{margin-left:auto}.full{width:100%}.space{margin-top:18px}.status{padding:12px;background:#102335;border-radius:12px;min-height:48px}.wheel-box{position:relative;width:min(100%,460px);aspect-ratio:1;margin:24px auto}.wheel{width:100%;height:100%;filter:drop-shadow(0 0 16px #23aaff88);transition:transform 4s cubic-bezier(.12,.68,.12,1)}.pointer{position:absolute;z-index:2;top:-8px;left:calc(50% - 16px);width:32px;height:43px;background:linear-gradient(#fff1ab,#d79c28);clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 4px 5px #000)}.hub{position:absolute;inset:39%;border-radius:50%;background:radial-gradient(#253548,#0a0e17);border:3px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-size:clamp(22px,5vw,45px);pointer-events:none}.bets input{width:150px}.bet-controls{display:grid;grid-template-columns:1fr auto;gap:10px}.rules{font-size:13px;color:var(--muted);margin:14px 0}.stat{border-bottom:1px solid #293548;padding:10px 0}.mono{font-family:ui-monospace,monospace;word-break:break-all}.history{max-height:350px;overflow:auto}.entry{padding:13px 0;border-bottom:1px solid #2c394b;font-size:14px}.positive{color:#6fe3b2}.negative{color:#ff9797}.pill{display:inline-block;background:#162d42;color:#9ddbff;border-radius:20px;padding:4px 10px;font-size:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}dialog{max-width:540px;width:calc(100% - 28px);max-height:90vh;overflow:auto;border:1px solid var(--gold);border-radius:18px;background:#101a29;color:#fff;padding:22px}dialog::backdrop{background:#000b}#adminDialog{max-width:850px}.close{float:right}.notice{border-left:3px solid var(--blue);padding:10px 13px;background:#102235;margin:14px 0;font-size:14px}#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#f6d882;color:#16110a;padding:12px 20px;border-radius:14px;z-index:10;max-width:92vw;box-shadow:0 8px 25px #0008}.foot{text-align:center;padding:30px;color:var(--muted);font-size:13px}a{color:#72cbff}@media(max-width:760px){.layout,.grid2{grid-template-columns:1fr}.wrap{padding:14px}.card{padding:17px}.top button{padding:8px 11px}.balance{font-size:23px}.wheel-box{max-width:370px}.bets input{width:115px}}
@@ -14,13 +14,27 @@
 .number-count{display:block;font-size:10px;line-height:1.3;font-weight:500;overflow-wrap:anywhere}.number-keys button{min-height:59px}.number-keys button[data-number="0"] .number-count{display:inline;margin-left:12px}.row #spin{margin-left:auto;min-height:44px;padding:8px 16px}.selected{font-size:12px}.row{min-width:0}
 @media(prefers-reduced-motion:reduce){.wheel{transition-duration:.01s}}
 .wheel-box{margin-top:12px}.number-keys{gap:8px}#publicBets{max-height:200px}#winnerList{border:1px solid var(--gold);border-radius:14px;background:linear-gradient(130deg,#153553,#242010)}.winner-celebration{text-align:center;border:2px solid var(--gold);background:radial-gradient(ellipse at top,#153e61,#101727 65%);position:relative}.trophy{font-size:70px;filter:drop-shadow(0 0 15px #ffe379)}.confetti{font-size:28px;color:var(--gold);letter-spacing:10px}.winner-celebration h2{font-size:29px}.win-number{font-size:48px;color:var(--gold);font-weight:800}#connectionState{font-size:12px;text-align:center;color:var(--muted)}
+
+/* Version 08: aplicación centrada, rueda simétrica y controles alineados. */
+html{min-height:100%;background:#050912}body{min-height:100dvh;background:radial-gradient(ellipse at 50% 5%,#172a42 0%,#070d17 70%);overflow-x:hidden}
+.wrap{width:100%;max-width:480px;min-height:100dvh;margin:0 auto;padding:18px 14px calc(106px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#101b2b,#080e18 52%);position:relative}
+.top{flex-wrap:nowrap;gap:10px;margin-bottom:12px;min-height:54px}.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand-crown{display:grid;place-items:center;width:42px;height:42px;border:1px solid #a4864a;border-radius:13px;color:var(--gold);background:#222b38;font-size:29px}.brand h1{font-size:23px;letter-spacing:3px;line-height:1.1;margin:0}.brand small{font-size:9px;letter-spacing:1.7px;color:#b8c6d9}.top #adminOpen{border-color:#33445d;background:#162239;padding:8px 10px;font-size:11px;min-height:40px}
+#connectionState{margin:0 0 14px;font-size:11px;line-height:1.4}.card{border-color:#3d4554;background:linear-gradient(155deg,#152133,#0b131f);border-radius:22px;padding:18px;box-shadow:0 12px 35px #0004}.auth{margin:22px auto;width:100%;max-width:420px}.auth h2{text-align:center}.auth>.muted{text-align:center;font-size:13px}.auth input{min-height:48px}.auth .full{min-height:48px}.game-card{padding:16px}
+.wallet-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:12px 13px;border:1px solid #394762;background:linear-gradient(110deg,#1e2c43,#132134);border-radius:16px}.wallet-bar small{font-size:11px}.wallet-bar .balance{font-size:clamp(19px,5.7vw,25px);line-height:1.35;font-variant-numeric:tabular-nums}.wallet-bar .push{display:flex;align-items:center;gap:6px;margin-left:0}.wallet-bar #publicIdentity{color:#b7d9ed;font-family:ui-monospace,monospace;font-size:11px;white-space:nowrap}.wallet-bar #copyID{padding:4px 7px;min-height:30px;border-radius:8px}.sound-row{display:flex;justify-content:flex-end;margin-top:4px}.sound-row button{margin-top:0;border:0;background:none;color:#98adc7;font-size:11px;min-height:30px;padding:4px 2px}
+.wheel-box{display:block;width:min(100%,336px);max-width:336px;aspect-ratio:1;margin:8px auto 18px;isolation:isolate}.wheel{display:block;width:100%;height:100%;transform-origin:50% 50%;filter:drop-shadow(0 0 12px #29a9e655)}.pointer{top:-5px;width:26px;height:35px;left:calc(50% - 13px)}.hub{font-size:37px}.round-clock{text-align:center;margin:0 0 18px;border:1px solid #344b69;border-radius:15px;background:#102238;padding:10px;line-height:1.35}.round-clock strong{color:#b5d9ef;font-size:13px}.round-clock .balance{font-size:30px;letter-spacing:3px;font-variant-numeric:tabular-nums}.round-clock small{font-size:10px}.number-title{font-size:17px;margin:0 0 10px}.selection-actions{justify-content:center;margin-bottom:10px}.selection-actions button{flex:1;min-height:39px;font-size:12px}.number-keys{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;margin:0 auto}.number-keys button{min-width:0;min-height:58px;border-radius:13px;font-size:21px}.number-count{font-size:10px}.repeat-control{border:1px solid #344056;background:#111d2e;border-radius:12px;padding:11px;margin-top:15px;font-size:13px;justify-content:center}.repeat-control input{accent-color:#e9c577;width:18px!important;height:18px;margin:0}.repeat-control+small{display:block;text-align:center;font-size:11px;line-height:1.5}.selected{overflow-wrap:anywhere}.status{font-size:13px}.bets{margin-top:16px}.bets input{min-height:44px}.bets label{text-align:center;font-size:13px}#totalStake{text-align:center;border-radius:12px;font-size:12px}#odds{text-align:center;font-size:11px}#publicBets{border:1px solid #29384e;border-radius:12px;padding:0 10px}#inviteMain,#groupOpen,#logout{margin-top:10px;min-height:46px;font-size:13px}#logout{border-color:#48576c;background:#121b2a;color:#b8c4d4}.mobile-nav{width:100%;max-width:480px;left:50%;border-color:#34445d;box-shadow:0 -8px 25px #0005}.mobile-nav button{min-height:47px}.mobile-nav button.active{border-radius:12px}dialog,#adminDialog{width:calc(100% - 28px);max-width:452px;border-radius:22px}dialog input{min-height:46px}#toast{width:max-content;max-width:min(92vw,440px);text-align:center;font-size:13px;overflow-wrap:anywhere}
+@media(min-width:540px){body{padding:24px 0}.wrap{min-height:calc(100dvh - 48px);border:1px solid #34435b;border-radius:28px;box-shadow:0 25px 90px #0009}.mobile-nav{bottom:24px;border-radius:18px;max-width:452px}.card{box-shadow:0 8px 24px #0003}}
+@media(max-width:350px){.wrap{padding-right:10px;padding-left:10px}.game-card{padding:12px}.wallet-bar{padding:10px}.wallet-bar .balance{font-size:18px}.brand h1{font-size:20px}.brand-crown{width:36px;height:36px;font-size:25px}.brand small{font-size:8px;letter-spacing:1px}.top #adminOpen{font-size:10px;padding:7px}.number-keys{gap:6px}.number-keys button{min-height:54px}.bets{grid-template-columns:39px minmax(0,1fr) 68px 39px}}
+
+#adminFeedback{position:sticky;top:0;z-index:4;margin:12px 0;border:1px solid #3e536e;white-space:pre-wrap;background:#11243b}#adminFeedback.positive{border-color:#2d9e73;background:#0b2e27}#adminFeedback.negative{border-color:#b6525c;background:#351922}#adminFeedback.pending{color:#f5d37e}button[aria-busy="true"]{cursor:wait}form[aria-busy="true"]{opacity:.85}
+/* El giro queda contenido y no altera el tamaño ni el scroll de la página. */
+html{scrollbar-gutter:stable}body{overscroll-behavior-x:none}.wrap,.game-card{overflow-anchor:none}.wheel-box{overflow:hidden;contain:layout paint;border-radius:50%;flex-shrink:0}.wheel-box .pointer{top:3px}.wheel{will-change:transform}.round-clock{min-height:100px}.round-clock strong{display:block;min-height:19px}.round-clock small{display:block;min-height:14px}#winnerList{overflow-anchor:none}
 </style>
 </head>
 <body>
 
 <main class="wrap">
-<header class="top"><h1>♛ RULETA</h1><div class="row"><button id="connectOpen">Conexión</button><button id="adminOpen">⚙ Administrador</button></div></header>
-<p id="connectionState">Configura tu proyecto Supabase para comenzar.</p><section id="auth" class="card auth">
+<header class="top"><div class="brand"><span class="brand-crown" aria-hidden="true">♛</span><div><h1>RULETA</h1><small>COMUNIDAD EN VIVO</small></div></div><div class="row"><button id="adminOpen">⚙ Administrador</button></div></header>
+<p id="connectionState">Conectando con el juego…</p><section id="auth" class="card auth">
 <h2 id="authTitle">Crear cuenta</h2><p class="muted">Bono de bienvenida: 0.20 USDT. Tu sesión se conserva hasta que pulses Cerrar sesión.</p>
 <form id="authForm"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="email" required maxlength="150">
 <div id="registrationFields"><label for="displayName">Nombre visible para los jugadores</label><input id="displayName" maxlength="40" autocomplete="nickname"><label for="phone">Número de teléfono</label><input id="phone" type="tel" autocomplete="tel" maxlength="25"></div>
@@ -30,9 +44,9 @@
 <button class="full space" id="switchAuth">Ya tengo cuenta · Iniciar sesión</button><p class="rules"></p>
 </section>
 <section id="platform" class="layout hidden">
-<div class="card"><div class="row"><div><small>Saldo USDT</small><div id="balance" class="balance"></div></div><div class="push"><small id="publicIdentity"></small><button id="copyID" class="compact" aria-label="Copiar mi ID">⧉</button></div></div>
-<small id="held"></small><button id="soundToggle" class="compact space" type="button" aria-pressed="true">🔊 Sonido activado</button><div class="wheel-box"><div class="pointer"></div><svg id="wheel" class="wheel" viewBox="0 0 400 400" role="img" aria-label="Ruleta numerada del cero al doce"></svg><div class="hub">♛</div></div>
-<div class="notice"><strong id="roundPhase">Preparando ronda</strong><div id="roundTimer" class="balance">00:25</div><small id="roundIdentity"></small></div><h3 class="number-title">Elige tus números</h3><div class="row"><button id="allNumbers" type="button" class="compact">Todos (+1)</button><button id="clearNumbers" type="button" class="compact">Limpiar</button></div><div id="numberKeys" class="number-keys" role="group" aria-label="Elegir número del 0 al 12"></div><p class="rules">Tienes el tiempo indicado para apostar. Cada toque reserva una apuesta base, sin límite fijo de toques por número, según tu saldo. Puedes quitarla antes de que comience el giro automático.</p><label class="row"><input id="repeatBets" type="checkbox" style="width:auto"> Mantener mis apuestas</label><small>Se cobran de nuevo en cada ronda, incluso si cierras la web. Sin saldo se omite la ronda. Apágalo para detener la repetición; Limpiar quita las apuestas de la ronda abierta.</small><div id="stakeChips" class="row"></div><p class="selected">Números elegidos: <strong id="selectedNumber">—</strong></p>
+<div class="card game-card"><div class="row wallet-bar"><div><small>Saldo USDT</small><div id="balance" class="balance"></div></div><div class="push"><small id="publicIdentity"></small><button id="copyID" class="compact" aria-label="Copiar mi ID">⧉</button></div></div>
+<small id="held"></small><div class="sound-row"><button id="soundToggle" class="compact space" type="button" aria-pressed="true">🔊 Sonido activado</button></div><div class="wheel-box"><div class="pointer"></div><svg id="wheel" class="wheel" viewBox="0 0 400 400" role="img" aria-label="Ruleta numerada del cero al doce"></svg><div class="hub">♛</div></div>
+<div class="notice round-clock"><strong id="roundPhase">Preparando ronda</strong><div id="roundTimer" class="balance">00:25</div><small id="roundIdentity"></small></div><h3 class="number-title">Elige tus números</h3><div class="row selection-actions"><button id="allNumbers" type="button" class="compact">Todos (+1)</button><button id="clearNumbers" type="button" class="compact">Limpiar</button></div><div id="numberKeys" class="number-keys" role="group" aria-label="Elegir número del 0 al 12"></div><p class="rules">Tienes el tiempo indicado para apostar. Cada toque reserva una apuesta base, sin límite fijo de toques por número, según tu saldo. Puedes quitarla antes de que comience el giro automático.</p><label class="row repeat-control"><input id="repeatBets" type="checkbox" style="width:auto"> Mantener mis apuestas</label><small>Se cobran de nuevo en cada ronda, incluso si cierras la web. Sin saldo se omite la ronda. Apágalo para detener la repetición; Limpiar quita las apuestas de la ronda abierta.</small><div id="stakeChips" class="row"></div><p class="selected">Números elegidos: <strong id="selectedNumber">—</strong></p>
 <div class="row bets"><label for="bet">Apuesta USDT por toque</label><input id="bet" type="number" min="0.01" step="0.000001"><button id="minimum">Mínimo</button><button id="minus" aria-label="Reducir apuesta">−</button><button id="plus" aria-label="Aumentar apuesta">+</button></div>
 <p class="notice" id="totalStake"></p><p class="rules" id="odds"></p><div id="result" class="status" role="status" aria-live="polite">Elige tu apuesta para comenzar.</div>
 <section id="winnerList" class="notice hidden" aria-live="polite"></section><details class="space"><summary>Reglas del juego</summary><p class="rules">Elige uno o varios números del 0 al 12. Cada toque suma una apuesta base, según tu saldo disponible. Cada selección reserva y descuenta su importe del saldo disponible. El giro comienza automáticamente al terminar la cuenta atrás. Si sale un número seleccionado, paga ×12 del monto acumulado en ese número; las apuestas de los demás números se pierden. Todos los resultados tienen la misma probabilidad: 1 de 13. Si sale un número elegido, su apuesta paga ×12 en total; las apuestas de los demás números se pierden. Si no aciertas, pierdes el total apostado. Elegir los 13 números cuesta 13 apuestas y devuelve 12 si aciertas; no garantiza ganancia. El resultado no depende de tu saldo, de tus bonos ni de tu identidad.</p><div id="prizes"></div></details><h3 class="space">Jugadas de la comunidad</h3><div id="publicBets" class="history"></div><div class="row space"><button class="gold" id="recharge" style="flex:1">Recarga</button><button class="blue" id="withdraw" style="flex:1">Retira</button></div><button id="inviteMain" class="gold full space">Invitar y recibir premios</button><button id="groupOpen" class="blue full space">Grupo de WhatsApp e información</button><button id="logout" class="full space hidden">Cerrar sesión</button></div>
@@ -45,7 +59,7 @@
 <dialog id="moneyDialog"><button type="button" class="close" data-close="moneyDialog">✕</button><h2 id="moneyTitle"></h2><div class="row"><p id="moneyUser" class="pill"></p><button id="moneyCopyID" type="button" class="compact">Copiar ID</button></div><p id="moneyInfo" class="notice"></p><form id="moneyForm"><label for="amount">Monto USDT</label><input id="amount" type="number" step="0.000001" inputmode="decimal" required><div id="rechargeIDField"><label for="rechargeUserID">Introduce tu ID</label><input id="rechargeUserID" placeholder="RF-123456" autocomplete="off" maxlength="20"></div><div id="bankPanel" class="hidden"><h3 class="space">Elige el medio de pago</h3><p class="rules">Selecciona la cuenta para tu solicitud. El monto solicitado se expresa en USDT; la moneda bancaria se muestra en cada cuenta. Revisa la moneda y las instrucciones antes de realizar la transferencia.</p><div id="bankChoices"></div></div><div id="moneyDetails" class="hidden"><div id="depositProofFields"><label for="depositProof">Enviar imagen del comprobante</label><input id="depositProof" type="file" accept="image/*"><img id="depositPreview" class="proof-image hidden" alt="Comprobante de recarga"><p id="imageStatus" class="rules"></p></div><div id="withdrawFields" class="hidden"><label id="withdrawAccountLabel" for="withdrawAccount">Número de cuenta</label><input id="withdrawAccount" maxlength="80" autocomplete="off"><label for="withdrawHolder">Nombre del titular</label><input id="withdrawHolder" maxlength="150" autocomplete="name"></div></div>
 <button id="moneySubmit" class="gold full space">Confirmar</button><button id="moneyBack" type="button" class="full space hidden">Cambiar monto o ID</button></form><p class="rules">El administrador confirma el depósito o el pago. Las transferencias bancarias, PayPal y Binance se realizan fuera de esta web.</p></dialog>
 <dialog id="adminAccess"><button type="button" class="close" data-close="adminAccess">✕</button><h2>Acceso al administrador</h2><form id="adminLoginForm"><label for="adminPassword">Contraseña</label><input id="adminPassword" type="password" inputmode="numeric" autocomplete="off" required><button class="gold full space">Entrar</button></form><p id="adminLoginError" class="negative" role="alert"></p></dialog>
-<dialog id="adminDialog"><button class="close" data-close="adminDialog">✕</button><h2>Panel de administrador</h2><small>Configuración y movimientos de saldo</small>
+<dialog id="adminDialog"><button class="close" data-close="adminDialog">✕</button><h2>Panel de administrador</h2><p id="adminFeedback" class="status hidden" role="status" aria-live="polite"></p><small>Configuración y movimientos de saldo</small>
 <section class="notice"><strong>Usuarios registrados: <span id="registeredCount">0</span></strong><br>Usuarios en línea: <strong id="onlineCount">0</strong><br><small>Usuarios en línea durante los últimos 45 segundos.</small></section><div id="adminMenu" class="grid2"><button data-admin-edit="timerForm">⏱ Cambiar temporizador</button><button data-admin-edit="settingsForm">Cambiar mínimos de juego, recarga y retiro</button><button data-admin-edit="whatsappForm">WhatsApp de solicitudes</button><button data-admin-edit="groupForm">Grupo e información</button><button data-admin-edit="referralEditor">Premios por invitación</button><button data-admin-edit="paymentEditor">Bancos, PayPal y Binance</button><button data-admin-edit="coinEditor">Enviar o retirar monedas</button><button data-admin-edit="requestEditor">Solicitudes y comprobantes</button><button data-admin-edit="userEditor">Usuarios registrados</button><button data-admin-edit="auditEditor">Historial de administración</button></div><button id="adminBack" class="full space hidden">← Volver a las funciones</button><form id="timerForm" data-admin-panel class="hidden"><h3 class="space">Cambiar temporizador</h3><div><label for="roundDuration">Tiempo para apostar</label><input id="roundDuration" type="number" min="1" max="3600" step="1" required value="25"><select id="roundTimeUnit"><option value="seconds">Segundos</option><option value="minutes">Minutos</option></select></div><button class="gold full space">Guardar temporizador</button></form><form id="settingsForm" data-admin-panel class="hidden"><div class="grid2"><div><label for="minBet">Apuesta mínima (desde 0.01)</label><input id="minBet" type="number" min="0.01" step="0.000001" inputmode="decimal" required></div><div><label>Premio por acierto</label><input value="×12 en total" readonly></div><div><label for="minRecharge">Recarga mínima</label><input id="minRecharge" type="number" min="0.01" step="0.000001" inputmode="decimal" placeholder="Por definir"></div><div><label for="minWithdraw">Retiro mínimo</label><input id="minWithdraw" type="number" min="0.01" step="0.000001" inputmode="decimal" placeholder="Por definir"></div></div><p class="rules">Rueda del 0 al 12 · todos los números tienen la misma probabilidad. Los cambios de mínimo se aplican a las nuevas apuestas.</p><button class="gold full space">Guardar cambios</button></form>
 <section data-admin-panel id="whatsappEditor" class="admin-wallet space hidden"><h3>WhatsApp para recibir solicitudes</h3><form id="whatsappForm"><label for="adminWhatsApp">Número con código de país</label><input id="adminWhatsApp" type="tel" placeholder="Ejemplo: 18095551234" maxlength="25"><button class="gold full space">Guardar WhatsApp</button></form><p class="rules">Se abre el chat con los datos preparados. El usuario confirma el envío. Para la foto, utiliza Compartir imagen o adjúntala en WhatsApp.</p></section>
 <section data-admin-panel id="groupEditor" class="admin-wallet space hidden"><h3>Grupo de WhatsApp e información</h3><form id="groupForm"><label for="groupURL">Enlace HTTPS del grupo o información</label><input id="groupURL" type="url" placeholder="https://chat.whatsapp.com/..." maxlength="1000"><button class="gold full space">Guardar enlace</button></form></section><section data-admin-panel id="paymentEditor" class="admin-wallet space hidden"><h3>Bancos, PayPal y Binance</h3><div id="adminBankList"></div><form id="bankForm"><h3 id="bankFormTitle" class="space">Agregar cuenta</h3><label for="bankMethod">Medio de pago</label><select id="bankMethod"><option value="bank">Banco</option><option value="paypal">PayPal</option><option value="binance_pay">Binance Pay</option><option value="binance_wallet">Binance · billetera USDT</option></select><label for="bankName">Nombre para mostrar</label><input id="bankName" required maxlength="100" placeholder="Nombre del banco"><label for="bankHolder">Titular de la cuenta</label><input id="bankHolder" required maxlength="150"><label id="bankNumberLabel" for="bankNumber">Número de cuenta</label><input id="bankNumber" required maxlength="80" autocomplete="off"><div id="bankTypeField"><label for="bankType">Tipo de cuenta</label><input id="bankType" maxlength="60" placeholder="Ahorros o corriente"></div><div id="bankNetworkField" class="hidden"><label for="bankNetwork">Red de la billetera USDT</label><input id="bankNetwork" maxlength="60" placeholder="Escribe la red exacta"></div><label for="bankCurrency">Moneda de la cuenta</label><select id="bankCurrency"><option value="DOP">Pesos dominicanos (DOP)</option><option value="USD">Dólares estadounidenses (USD)</option><option value="USDT">USDT</option></select><label for="bankInstructions">Indicaciones para el usuario (opcional)</label><input id="bankInstructions" maxlength="500" placeholder="Referencia o instrucciones"><label class="row"><input id="bankForRecharge" type="checkbox" checked style="width:auto">Disponible para recargas</label><label class="row"><input id="bankForWithdraw" type="checkbox" checked style="width:auto">Disponible para retiros</label><label class="row"><input id="bankEnabled" type="checkbox" checked style="width:auto">Mostrar esta cuenta a los usuarios</label><button class="gold full space">Guardar cuenta</button><button id="cancelBankEdit" type="button" class="full space hidden">Cancelar edición</button></form></section>
@@ -55,7 +69,6 @@
 
 <dialog id="requestStatus"><button class="close" data-close="requestStatus">✕</button><h2 id="requestStatusTitle"></h2><div id="requestStatusBody"></div><button id="requestWhatsApp" class="blue full space">Abrir WhatsApp con los datos</button><button id="shareProof" class="gold full space hidden">Compartir imagen del comprobante</button><p class="rules">En WhatsApp debes confirmar el envío. La imagen se comparte aparte; elige WhatsApp y el chat del administrador.</p><button id="refreshRequest" class="full space">Actualizar estado</button></dialog>
 <div id="toast" role="status" class="hidden"></div>
-<dialog id="connectDialog"><button class="close" data-close="connectDialog">✕</button><h2>Conectar Supabase</h2><form id="connectForm"><label>URL del proyecto</label><input id="supabaseURL" type="url" placeholder="https://tu-proyecto.supabase.co" required><label>Clave pública Publishable o anon</label><input id="supabaseKey" required autocomplete="off"><p class="rules">Utiliza solamente la clave pública. El SQL ya debe estar instalado en ese proyecto.</p><button class="gold full space">Guardar y conectar</button></form></dialog>
 <dialog id="winnerDialog" class="winner-celebration"><button class="close" data-close="winnerDialog">✕</button><div class="confetti">✦ ✧ ✦ ✧</div><div class="trophy">🏆</div><h2 id="winnerTitle"></h2><p>Salió tu número</p><div id="winnerNumber" class="win-number"></div><p id="winnerAmount" class="balance"></p><p id="winnerNet"></p><button class="gold full space" data-close="winnerDialog">Continuar jugando</button></dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
@@ -79,13 +92,14 @@ const micro=n=>Math.round(Number(n||0)*UNIT), decimal=n=>Number(n)/UNIT;
 let cloud=null,authSession=null,state=null,session=null,register=true,activeView='game',toastTimer;
 let selectedNumbers=new Map(),spinning=false,rotation=0,animatedRound=null,serverOffset=0,syncing=false,betBusy=false;
 let db={users:[],requests:[],banks:[],config:{}}, ownTransactions=[],adminUsers=[],adminBanks=[],adminAudit=[],adminRequests=[];
+let adminSaving=false,dataRevision=0;
 let adminUnlocked=false,pendingAdmin=null,moneyType='recharge',moneyStep=1,selectedBank=null,editingBank=null,depositImage=null,statusRequestID=null;
 let requestClientID=null,requestProofPath=null,requestPayload=null,proofCache=new Map(),lastHistory=0,lastPresence=0,lastAdmin=0,connectionVersion=0;
 let incomingRef=new URLSearchParams(location.search).get('ref')||sessionStorage.getItem('ruleta_ref')||'';
 if(incomingRef)sessionStorage.setItem('ruleta_ref',incomingRef);
 let rouletteAudio=null,soundEnabled=localStorage.getItem('ruleta_sound_enabled')!=='0',audioNodes=[];
 function current(){return db.users.find(u=>u.id===session);}
-function notify(message){$('toast').textContent=message;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),5000);}
+function notify(message){if($('adminDialog')?.open)adminMessage(message);$('toast').textContent=message;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),5000);}
 function show(id){if(!$(id).open)$(id).showModal();}
 function units(value){const s=String(value).trim();if(!/^\d+(\.\d{1,6})?$/.test(s))return null;const n=Number(s),u=micro(n);return n>0&&n<=1e9&&Number.isSafeInteger(u)?u:null;}
 function uuid(){return crypto.randomUUID();}
@@ -101,7 +115,7 @@ function applyState(s){state=s;serverOffset=Date.parse(s.server_time)-Date.now()
  db.config={minBet:micro(s.settings.minimum_bet),minRecharge:s.settings.minimum_recharge==null?null:micro(s.settings.minimum_recharge),minWithdraw:s.settings.minimum_withdrawal==null?null:micro(s.settings.minimum_withdrawal),roundSeconds:s.settings.round_seconds,whatsapp:s.settings.whatsapp,groupURL:s.settings.group_url};
  selectedNumbers=new Map(Object.entries(s.my_bets?.counts||{}).map(([n,c])=>[Number(n),Number(c)]));spinning=s.round?.status==='spinning';
  render();animateRound();displayWinner();}
-async function sync(force=false){if(syncing||!cloud||!authSession)return;syncing=true;const generation=connectionVersion;try{const s=await rpc('rf_get_game_state');if(generation!==connectionVersion)return;applyState(s);
+async function sync(force=false){if(syncing||adminSaving||!cloud||!authSession)return;syncing=true;const generation=connectionVersion,revision=dataRevision;try{const s=await rpc('rf_get_game_state');if(generation!==connectionVersion||revision!==dataRevision)return;applyState(s);
  if(force||Date.now()-lastHistory>5000){lastHistory=Date.now();await loadHistory();}
  if(Date.now()-lastPresence>15000){lastPresence=Date.now();await rpc('rf_touch_presence');}
  if(adminUnlocked&&(force||Date.now()-lastAdmin>7000)){lastAdmin=Date.now();await loadAdmin();}
@@ -123,11 +137,9 @@ async function connect(url,key){url=url.trim().replace(/\/$/,'');key=key.trim();
  const {data,error}=await client.auth.getSession();if(error)throw Error(error.message);authSession=data.session;
  $('connectionState').textContent=authSession?'Conectando…':'Proyecto configurado. Crea tu cuenta o inicia sesión.';
  if(authSession)await sync(true);}
-$('connectOpen').onclick=()=>{let c={};try{c=JSON.parse(localStorage.getItem(CONFIG_KEY))||{};}catch{}$('supabaseURL').value=c.url||SUPABASE_URL;$('supabaseKey').value=c.key||SUPABASE_PUBLIC_KEY;show('connectDialog');};
-$('connectForm').onsubmit=e=>{e.preventDefault();action(async()=>{await connect($('supabaseURL').value,$('supabaseKey').value);$('connectDialog').close();notify('Configuración de Supabase guardada.');});};
 $('switchAuth').onclick=()=>{register=!register;$('authTitle').textContent=register?'Crear cuenta':'Iniciar sesión';$('authSubmit').textContent=register?'Crear cuenta':'Entrar';$('registrationFields').classList.toggle('hidden',!register);$('confirmationField').classList.toggle('hidden',!register);$('switchAuth').textContent=register?'Ya tengo cuenta · Iniciar sesión':'Crear una cuenta';$('password').autocomplete=register?'new-password':'current-password';};
 if(incomingRef){$('refHint').textContent='Registro mediante enlace de invitación.';$('refHint').classList.remove('hidden');}
-$('authForm').onsubmit=async e=>{e.preventDefault();$('authSubmit').disabled=true;try{if(!cloud)throw Error('Pulsa Conexión y configura tu proyecto primero.');const email=$('email').value.trim(),password=$('password').value;let result;
+$('authForm').onsubmit=async e=>{e.preventDefault();$('authSubmit').disabled=true;try{if(!cloud)throw Error('No se pudo conectar al servidor. Comprueba internet y recarga la página.');const email=$('email').value.trim(),password=$('password').value;let result;
  if(register){const phone=$('phone').value.replace(/\D/g,'');if(phone.length<7||phone.length>15)throw Error('Escribe un teléfono válido con código de país.');if(password!==$('confirmPassword').value)throw Error('Las contraseñas no coinciden.');
  result=await cloud.auth.signUp({email,password,options:{data:{phone,display_name:$('displayName').value.trim(),referral_id:incomingRef}}});}
  else result=await cloud.auth.signInWithPassword({email,password});
@@ -159,10 +171,11 @@ function render(){const u=current();$('auth').classList.toggle('hidden',!!u);$('
  $('odds').textContent=`Mínimo: ${fmt(min)} · Premio: ×12 en total · Probabilidad: 1 de 13 (7.69 %).`;
  $('repeatBets').checked=!!state.repeat_settings?.enabled;renderNumbers();renderHeld();renderPublicBets();frame();}
 function renderHeld(){const held=db.requests.filter(r=>r.type==='withdraw'&&r.status==='pending').reduce((n,r)=>n+r.amount,0);$('held').textContent=held?fmt(held)+' reservados para retiro':'';}
+function updateHTML(id,html){if($(id).innerHTML!==html)$(id).innerHTML=html;}
 function renderNumbers(){const locked=!state?.round||spinning||Date.now()+serverOffset>=Date.parse(state.round.closes_at)||betBusy;
- $('numberKeys').innerHTML=Array.from({length:13},(_,n)=>{const c=selectedNumbers.get(n)||0;return `<button type="button" data-number="${n}" aria-pressed="${c>0}" ${locked?'disabled':''} class="${c?'selected-key':''}">${n}<span class="number-count">${c?c+' apuestas':'Elegir'}</span></button>`;}).join('');
+ updateHTML('numberKeys',Array.from({length:13},(_,n)=>{const c=selectedNumbers.get(n)||0;return `<button type="button" data-number="${n}" aria-pressed="${c>0}" ${locked?'disabled':''} class="${c?'selected-key':''}">${n}<span class="number-count">${c?c+' apuestas':'Elegir'}</span></button>`;}).join(''));
  $('selectedNumber').textContent=[...selectedNumbers].sort((a,b)=>a[0]-b[0]).map(([n,c])=>`${n} (×${c})`).join(' · ')||'—';
- $('stakeChips').innerHTML=[...selectedNumbers].sort((a,b)=>a[0]-b[0]).map(([n,c])=>`<button class="compact" data-remove-stake="${n}" ${locked?'disabled':''}>${n}: ${c} · −1</button>`).join('');
+ updateHTML('stakeChips',[...selectedNumbers].sort((a,b)=>a[0]-b[0]).map(([n,c])=>`<button class="compact" data-remove-stake="${n}" ${locked?'disabled':''}>${n}: ${c} · −1</button>`).join(''));
  $('allNumbers').disabled=locked;$('clearNumbers').disabled=locked;$('repeatBets').disabled=betBusy;
  const count=[...selectedNumbers.values()].reduce((a,b)=>a+b,0);$('totalStake').textContent=`${count} apuestas en ${selectedNumbers.size} números · ${fmt(micro(state?.my_bets?.total_amount))} reservados para esta ronda`;
  $('prizes').textContent=[...selectedNumbers].map(([n,c])=>'Si sale '+n+': '+fmt(c*micro(state?.my_bets?.unit_amount)*12)).join(' · ')||'Elige números para ver los premios.';}
@@ -238,27 +251,119 @@ $('refreshRequest').onclick=()=>action(()=>loadHistory());
 $('shareProof').onclick=()=>action(async()=>{const r=db.requests.find(r=>r.id===statusRequestID);if(!r?.deposit_proof_path)return;const {data,error}=await cloud.storage.from('rf-payment-proofs').download(r.deposit_proof_path);if(error)throw error;const file=new File([data],'comprobante.jpg',{type:'image/jpeg'});const message=requestText(r);
  if(navigator.canShare?.({files:[file]}))await navigator.share({files:[file],text:message,title:'Comprobante de recarga'});
  else{const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download='comprobante.jpg';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);notify('Adjunta la imagen descargada en el chat del administrador.');}});
-async function loadAdmin(){if(!requireAdmin())return;const [stats,profiles,wallets,requests,banks,audit]=await Promise.all([rpc('rf_admin_statistics'),rows('rf_profiles'),rows('rf_wallets',{},null),rows('rf_payment_requests'),rows('rf_payment_methods'),rows('rf_admin_actions')]);
+async function loadAdmin(){if(!requireAdmin())return;const revision=dataRevision;const [stats,profiles,wallets,requests,banks,audit]=await Promise.all([rpc('rf_admin_statistics'),rows('rf_profiles'),rows('rf_wallets',{},null),rows('rf_payment_requests'),rows('rf_payment_methods'),rows('rf_admin_actions')]);
+ if(revision!==dataRevision)return;
  adminUsers=profiles.map(p=>userFrom(p,wallets.find(w=>w.user_id===p.id)?.balance));adminRequests=requests.map(normalizeRequest);adminBanks=banks.filter(b=>!b.deleted_at).map(normalizeMethod);adminAudit=audit;
  $('registeredCount').textContent=stats.registered;$('onlineCount').textContent=stats.online;await renderAdmin();}
-function adminMenu(panel=null){document.querySelectorAll('[data-admin-panel]').forEach(p=>p.classList.add('hidden'));$('adminMenu').classList.toggle('hidden',!!panel);$('adminBack').classList.toggle('hidden',!panel);if(panel)$(panel).classList.remove('hidden');}
-$('adminBack').onclick=()=>adminMenu();
-document.querySelectorAll('[data-admin-edit]').forEach(b=>b.onclick=()=>{const names={whatsappForm:'whatsappEditor',groupForm:'groupEditor'};adminMenu(names[b.dataset.adminEdit]||b.dataset.adminEdit);});
+function adminMessage(message,kind=''){
+ const box=$('adminFeedback');box.textContent=message;box.classList.toggle('hidden',!message);
+ for(const status of ['positive','negative','pending'])box.classList.toggle(status,status===kind);
+}
+function adminMenu(panel=null){
+ document.querySelectorAll('[data-admin-panel]').forEach(p=>p.classList.add('hidden'));
+ $('adminMenu').classList.toggle('hidden',!!panel);$('adminBack').classList.toggle('hidden',!panel);
+ if(panel){$(panel).classList.remove('hidden');adminMessage('');}
+ $('adminDialog').scrollTop=0;
+}
+$('adminBack').onclick=()=>{if(adminSaving)return;adminMenu();adminMessage('');};
+document.querySelectorAll('[data-admin-edit]').forEach(b=>b.onclick=()=>{
+ if(adminSaving)return;fillSettings();const names={whatsappForm:'whatsappEditor',groupForm:'groupEditor'};
+ adminMenu(names[b.dataset.adminEdit]||b.dataset.adminEdit);
+});
+async function runAdminSave(formId,work,message){
+ if(adminSaving)return false;
+ const form=$(formId),buttons=[...form.querySelectorAll('button[type="submit"],button:not([type])')];
+ const oldButtons=buttons.map(b=>({b,text:b.textContent,disabled:b.disabled}));
+ let committed=false;
+ try{
+  if(!state?.is_admin||!adminUnlocked)throw Error('Tu cuenta no tiene permisos de administrador.');
+  if(form.checkValidity&&!form.checkValidity()){form.reportValidity();throw Error('Revisa los campos marcados antes de guardar.');}
+  adminSaving=true;dataRevision++;
+  form.setAttribute('aria-busy','true');$('adminBack').disabled=true;
+  oldButtons.forEach(({b})=>{b.disabled=true;b.textContent='Guardando…';b.setAttribute('aria-busy','true');});
+  adminMessage('Guardando en Supabase…','pending');
+  await work();committed=true;dataRevision++;
+  let refreshWarning='';
+  try{applyState(await rpc('rf_get_game_state'));await loadAdmin();fillSettings();}
+  catch(e){refreshWarning=' Los cambios están guardados, pero no se pudo actualizar la vista: '+e.message;}
+  adminMenu();adminMessage(message+refreshWarning,refreshWarning?'':'positive');
+  return true;
+ }catch(e){
+  adminMessage((committed?'Los cambios se guardaron. ':'No se guardó: ')+(e.message||'No se pudo completar la operación.'),'negative');
+  return false;
+ }finally{
+  adminSaving=false;form.setAttribute('aria-busy','false');$('adminBack').disabled=false;
+  oldButtons.forEach(({b,text,disabled})=>{b.disabled=disabled;b.textContent=text;b.setAttribute('aria-busy','false');});
+ }
+}
+function bindAdminSave(formId,work,message){
+ const form=$(formId);
+ form.onsubmit=async e=>{e.preventDefault();return runAdminSave(formId,work,message);};
+ form.addEventListener('invalid',()=>adminMessage('Completa los campos obligatorios y revisa los valores marcados.','negative'),true);
+}
 $('adminOpen').onclick=()=>{if(!state?.is_admin)return notify('Inicia sesión con la cuenta autorizada en Supabase como administrador.');$('adminPassword').value='';$('adminLoginError').textContent='';show('adminAccess');};
-$('adminLoginForm').onsubmit=e=>{e.preventDefault();if(!state?.is_admin||$('adminPassword').value!=='170812'){$('adminLoginError').textContent='Acceso incorrecto.';return;}adminUnlocked=true;$('adminPassword').value='';$('adminAccess').close();action(async()=>{await loadAdmin();fillSettings();adminMenu();show('adminDialog');});};
+$('adminLoginForm').onsubmit=e=>{e.preventDefault();if(!state?.is_admin||$('adminPassword').value!=='170812'){$('adminLoginError').textContent='Acceso incorrecto.';return;}adminUnlocked=true;$('adminPassword').value='';$('adminAccess').close();action(async()=>{await loadAdmin();fillSettings();adminMenu();adminMessage('');show('adminDialog');});};
 $('adminDialog').addEventListener('close',()=>{adminUnlocked=false;pendingAdmin=null;});
 function fillSettings(){if(!state)return;const s=state.settings;for(const [id,key] of [['minBet','minimum_bet'],['minRecharge','minimum_recharge'],['minWithdraw','minimum_withdrawal'],['roundDuration','round_seconds'],['adminWhatsApp','whatsapp'],['groupURL','group_url']])$(id).value=s[key]??'';$('roundTimeUnit').value='seconds';$('referralRegistration').value=s.referral_registration_bonus;$('referralRecharge').value=s.referral_first_recharge_bonus;}
-async function saveSettings(changes){if(!requireAdmin())return;const s=state.settings;await rpc('rf_update_settings',{p_minimum_bet:changes.minimum_bet??s.minimum_bet,p_minimum_recharge:Object.hasOwn(changes,'minimum_recharge')?changes.minimum_recharge:s.minimum_recharge,p_minimum_withdrawal:Object.hasOwn(changes,'minimum_withdrawal')?changes.minimum_withdrawal:s.minimum_withdrawal,p_round_seconds:changes.round_seconds??s.round_seconds,p_whatsapp:changes.whatsapp??s.whatsapp,p_group_url:changes.group_url??s.group_url,p_enabled:s.game_enabled});await sync(true);fillSettings();notify('Configuración guardada en Supabase.');}
-$('timerForm').onsubmit=e=>{e.preventDefault();action(async()=>{const seconds=Number($('roundDuration').value)*($('roundTimeUnit').value==='minutes'?60:1);if(!Number.isInteger(seconds)||seconds<1||seconds>3600)throw Error('El tiempo debe ser de 1 a 3600 segundos.');await saveSettings({round_seconds:seconds});});};
-$('settingsForm').onsubmit=e=>{e.preventDefault();action(async()=>{for(const id of ['minBet','minRecharge','minWithdraw'])if($(id).value&&(!units($(id).value)||Number($(id).value)<.01))throw Error('Mínimos de al menos 0.01 USDT.');await saveSettings({minimum_bet:Number($('minBet').value),minimum_recharge:$('minRecharge').value?Number($('minRecharge').value):null,minimum_withdrawal:$('minWithdraw').value?Number($('minWithdraw').value):null});});};
-$('referralForm').onsubmit=e=>{e.preventDefault();action(async()=>{if(!requireAdmin())return;for(const id of ['referralRegistration','referralRecharge'])if(!/^\d+(\.\d{1,6})?$/.test($(id).value))throw Error('Importe inválido. Usa cero o más, con hasta 6 decimales.');await rpc('rf_update_referral_rewards',{p_registration:Number($('referralRegistration').value),p_recharge:Number($('referralRecharge').value)});await sync(true);fillSettings();notify('Premios por invitación actualizados.');});};
-$('whatsappForm').onsubmit=e=>{e.preventDefault();action(()=>saveSettings({whatsapp:$('adminWhatsApp').value.replace(/\D/g,'')}));};
-$('groupForm').onsubmit=e=>{e.preventDefault();action(async()=>{const raw=$('groupURL').value.trim();if(raw){const url=new URL(raw);if(url.protocol!=='https:'||url.username||url.password)throw Error('Introduce un enlace HTTPS válido.');}await saveSettings({group_url:raw});});};
+async function saveSettings(changes){
+ if(!state?.is_admin||!adminUnlocked)throw Error('Tu cuenta no tiene permisos de administrador.');
+ const s=state.settings,has=key=>Object.prototype.hasOwnProperty.call(changes,key);
+ const saved=await rpc('rf_update_settings',{
+  p_minimum_bet:changes.minimum_bet??s.minimum_bet,
+  p_minimum_recharge:has('minimum_recharge')?changes.minimum_recharge:s.minimum_recharge,
+  p_minimum_withdrawal:has('minimum_withdrawal')?changes.minimum_withdrawal:s.minimum_withdrawal,
+  p_round_seconds:changes.round_seconds??s.round_seconds,
+  p_whatsapp:changes.whatsapp??s.whatsapp,p_group_url:changes.group_url??s.group_url,p_enabled:s.game_enabled
+ });
+ if(!saved)throw Error('El servidor no confirmó el guardado.');
+ state.settings=Array.isArray(saved)?saved[0]:saved;
+}
+bindAdminSave('timerForm',async()=>{
+ const seconds=Number($('roundDuration').value)*($('roundTimeUnit').value==='minutes'?60:1);
+ if(!Number.isInteger(seconds)||seconds<1||seconds>3600)throw Error('El tiempo debe ser de 1 a 3600 segundos.');
+ await saveSettings({round_seconds:seconds});
+},'Temporizador guardado. Se aplicará a las próximas rondas.');
+bindAdminSave('settingsForm',async()=>{
+ for(const id of ['minBet','minRecharge','minWithdraw'])
+  if($(id).value&&(!units($(id).value)||Number($(id).value)<.01))throw Error('Los mínimos deben ser de al menos 0.01 USDT.');
+ if(!units($('minBet').value))throw Error('Introduce una apuesta mínima válida.');
+ await saveSettings({minimum_bet:Number($('minBet').value),
+  minimum_recharge:$('minRecharge').value?Number($('minRecharge').value):null,
+  minimum_withdrawal:$('minWithdraw').value?Number($('minWithdraw').value):null});
+},'Mínimos de apuesta, recarga y retiro guardados.');
+bindAdminSave('referralForm',async()=>{
+ for(const id of ['referralRegistration','referralRecharge'])
+  if(!/^\d+(\.\d{1,6})?$/.test($(id).value)||Number($(id).value)>1e9)throw Error('Premios entre 0 y 1,000,000,000 USDT, con hasta 6 decimales.');
+ const saved=await rpc('rf_update_referral_rewards',{p_registration:Number($('referralRegistration').value),p_recharge:Number($('referralRecharge').value)});
+ if(!saved)throw Error('El servidor no confirmó los premios.');
+ state.settings=Array.isArray(saved)?saved[0]:saved;
+},'Premios por invitación guardados.');
+bindAdminSave('whatsappForm',async()=>{
+ const number=$('adminWhatsApp').value.replace(/\D/g,'');
+ if(number&&!/^\d{8,15}$/.test(number))throw Error('Escribe un WhatsApp válido con código de país: de 8 a 15 dígitos.');
+ await saveSettings({whatsapp:number});
+},'WhatsApp para solicitudes guardado.');
+bindAdminSave('groupForm',async()=>{
+ const raw=$('groupURL').value.trim();
+ if(raw){let url;try{url=new URL(raw);}catch{throw Error('Introduce un enlace HTTPS válido.');}
+  if(url.protocol!=='https:'||url.username||url.password)throw Error('Introduce un enlace HTTPS válido.');}
+ await saveSettings({group_url:raw});
+},'Enlace de grupo e información guardado.');
 function configureMethodFields(){const method=$('bankMethod').value;$('bankNumberLabel').textContent=accountLabel({method});$('bankTypeField').classList.toggle('hidden',method!=='bank');$('bankNetworkField').classList.toggle('hidden',method!=='binance_wallet');if(method==='paypal')$('bankCurrency').value='USD';if(method.startsWith('binance'))$('bankCurrency').value='USDT';}
 $('bankMethod').onchange=configureMethodFields;
 function resetBankEditor(){editingBank=null;$('bankForm').reset();$('bankFormTitle').textContent='Agregar cuenta';$('cancelBankEdit').classList.add('hidden');configureMethodFields();}
 $('cancelBankEdit').onclick=resetBankEditor;
-$('bankForm').onsubmit=e=>{e.preventDefault();action(async()=>{if(!requireAdmin())return;const p={id:editingBank,method:$('bankMethod').value,name:$('bankName').value.trim(),holder:$('bankHolder').value.trim(),identifier:$('bankNumber').value.trim(),account_type:$('bankType').value.trim(),network:$('bankNetwork').value.trim(),currency:$('bankCurrency').value,instructions:$('bankInstructions').value.trim(),enabled:$('bankEnabled').checked,for_recharge:$('bankForRecharge').checked,for_withdrawal:$('bankForWithdraw').checked};await rpc('rf_save_payment_method',{p_data:p});resetBankEditor();await sync(true);notify('Medio de pago guardado.');});};
+bindAdminSave('bankForm',async()=>{
+ const p={id:editingBank,method:$('bankMethod').value,name:$('bankName').value.trim(),holder:$('bankHolder').value.trim(),identifier:$('bankNumber').value.trim(),account_type:$('bankType').value.trim(),network:$('bankNetwork').value.trim(),currency:$('bankCurrency').value,instructions:$('bankInstructions').value.trim(),enabled:$('bankEnabled').checked,for_recharge:$('bankForRecharge').checked,for_withdrawal:$('bankForWithdraw').checked};
+ if(!p.name||!p.holder||!p.identifier)throw Error('Completa el nombre, titular e identificador de la cuenta.');
+ if(p.method==='paypal'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.identifier))throw Error('Introduce un correo de PayPal válido.');
+ if(p.method==='paypal'&&p.currency!=='USD')throw Error('PayPal debe configurarse en USD.');
+ if(p.method.startsWith('binance')&&p.currency!=='USDT')throw Error('Binance debe configurarse en USDT.');
+ if(p.method==='binance_wallet'&&!p.network)throw Error('Escribe la red exacta de la billetera USDT.');
+ const saved=await rpc('rf_save_payment_method',{p_data:p});
+ if(!saved)throw Error('El servidor no confirmó el medio de pago.');
+ resetBankEditor();
+},'Medio de pago guardado.');
 $('adminBankList').onclick=e=>action(async()=>{if(!requireAdmin())return;const edit=e.target.closest('[data-bank-edit]'),toggle=e.target.closest('[data-bank-toggle]'),del=e.target.closest('[data-bank-delete]'),id=edit?.dataset.bankEdit||toggle?.dataset.bankToggle||del?.dataset.bankDelete;const b=adminBanks.find(b=>b.id===id);if(!b)return;
  if(edit){editingBank=b.id;for(const [field,key] of [['bankMethod','method'],['bankName','name'],['bankHolder','holder'],['bankNumber','identifier'],['bankType','account_type'],['bankNetwork','network'],['bankCurrency','currency'],['bankInstructions','instructions']])$(field).value=b[key]||'';for(const [field,key] of [['bankEnabled','enabled'],['bankForRecharge','for_recharge'],['bankForWithdraw','for_withdrawal']])$(field).checked=b[key];configureMethodFields();$('bankFormTitle').textContent='Editar cuenta';$('cancelBankEdit').classList.remove('hidden');return;}
  if(del){if(!confirm('¿Eliminar este medio de pago?'))return;await rpc('rf_delete_payment_method',{p_id:b.id});}else await rpc('rf_save_payment_method',{p_data:{...b,enabled:!b.enabled}});await sync(true);});
@@ -284,6 +389,5 @@ window.addEventListener('focus',()=>sync(true));
 start();
 
 </script>
-</main>
 </body>
 </html>
